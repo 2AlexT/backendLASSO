@@ -1,0 +1,6 @@
+{
+    "logConfig": {
+        "logFolder": "./src/logs//",
+        "logFile": "DailyErrorLogs-%DATE%.log"
+       }
+}

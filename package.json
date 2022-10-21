@@ -1,0 +1,52 @@
+{
+  "name": "backregasfi",
+  "version": "1.0.0",
+  "description": "ASFI backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "exchange-autodiscover": "^1.1.1",
+    "express": "^4.18.1",
+    "express-rate-limit": "^6.6.0",
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.0",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^2.3.3",
+    "mongoose": "^6.6.1",
+    "morgan": "^1.10.0",
+    "msnodesqlv8": "^2.6.0",
+    "mssql": "^9.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "ng2-file-upload": "^1.4.0",
+    "node-ews": "^3.5.0",
+    "nodemailer": "^6.7.8",
+    "nodemailer-sendgrid": "^1.0.3",
+    "passport": "^0.6.0",
+    "passport-ldapauth": "^3.0.1",
+    "punycode": "^2.1.1",
+    "pusher": "^5.1.1-beta",
+    "ratelimit": "^0.0.4",
+    "sequelize": "^6.23.2",
+    "tedious": "^15.1.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

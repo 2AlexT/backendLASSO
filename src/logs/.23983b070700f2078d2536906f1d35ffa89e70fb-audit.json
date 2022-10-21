@@ -1,0 +1,105 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 24
+    },
+    "auditLog": "src\\logs\\.23983b070700f2078d2536906f1d35ffa89e70fb-audit.json",
+    "files": [
+        {
+            "date": 1664301640161,
+            "name": "src\\logs\\DailyErrorLogs-2022-09-27.log",
+            "hash": "8c1ebf667ea35b39a6da3e9910430c52b650393edfc35e5f602cc4bc399f2cb5"
+        },
+        {
+            "date": 1664368864383,
+            "name": "src\\logs\\DailyErrorLogs-2022-09-28.log",
+            "hash": "c8d1aecffe1d1239689a2d34583bca77ff0e15bc888e32e8faa2e1b1456a9d39"
+        },
+        {
+            "date": 1664454783521,
+            "name": "src\\logs\\DailyErrorLogs-2022-09-29.log",
+            "hash": "757c06b1ae5b106886371b8474153340470a7c52caff43d8dbf28231daa8beb1"
+        },
+        {
+            "date": 1664540333273,
+            "name": "src\\logs\\DailyErrorLogs-2022-09-30.log",
+            "hash": "95e1dd103b82b441d2a6dc5cca28abab73f0ed2cc5e6b89a96d5ac35b390811b"
+        },
+        {
+            "date": 1664804019508,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-03.log",
+            "hash": "eeb7ef47f2b4585cbe003c6587e51627b92206d835ce5d7cc58ab7d850c59b8b"
+        },
+        {
+            "date": 1664886305468,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-04.log",
+            "hash": "3c70143ff3a0a0235bc86499299a707229e212cf59518e255b13ad91ccdeb21c"
+        },
+        {
+            "date": 1664972558435,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-05.log",
+            "hash": "138474780e2fbb59a59bc4864b6e6c7f0dd8136c16718dac839f0dad03abfe6a"
+        },
+        {
+            "date": 1665058412645,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-06.log",
+            "hash": "920cd85bcf62de04de9358dee716f1d1692573cbf05da0abaa9ecd235fcbc62f"
+        },
+        {
+            "date": 1665145418116,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-07.log",
+            "hash": "120ec4af3dd9e176ee2e186dbddd7a9d0fbbf0df466e83af2362a49ee2ffd34e"
+        },
+        {
+            "date": 1665406475725,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-10.log",
+            "hash": "564e910bee9ab3966afc250bb1a9d61aaa4bc11b027cae676683dd2a5bd4487a"
+        },
+        {
+            "date": 1665495844596,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-11.log",
+            "hash": "d7f66143c44bc27988ea45787d364e5ae8468d3fc267b3f54d4877f9745f66f7"
+        },
+        {
+            "date": 1665577848905,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-12.log",
+            "hash": "0265dbded59b88f9b9b491550492424c52c76286d1b6655ab72ebc8b69bb276f"
+        },
+        {
+            "date": 1665664436074,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-13.log",
+            "hash": "5363537f86363748dfbe8bd270d14091f0f369a78bb2ee5923b51459597cf3d5"
+        },
+        {
+            "date": 1665750658788,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-14.log",
+            "hash": "1043d982556ac3ed54d7672ef18a823afcf3fbfeb84bf2ea8a43844014e4b434"
+        },
+        {
+            "date": 1666009382529,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-17.log",
+            "hash": "1f3e6376e1cbd06bb75abb7399fa371e89d756699bee782ee6aff698194e9a20"
+        },
+        {
+            "date": 1666095735454,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-18.log",
+            "hash": "7cd8da43d00053cf81263dbf7effe2aef1f15fc91a7e96b534e99d8ee053064e"
+        },
+        {
+            "date": 1666183360760,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-19.log",
+            "hash": "ec9dc6aa523c8624f6fc252de38f9279581262e782f27be7ef216e4f14a60a5a"
+        },
+        {
+            "date": 1666269640570,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-20.log",
+            "hash": "b976c14192604a85db8cd28bb71727ec519a058fe6cee8a4b2c33ee40255c544"
+        },
+        {
+            "date": 1666355711216,
+            "name": "src\\logs\\DailyErrorLogs-2022-10-21.log",
+            "hash": "983892643414bfa8b915a091a76e4bee296c56d203b182b7300e278385c759de"
+        }
+    ],
+    "hashType": "sha256"
+}
