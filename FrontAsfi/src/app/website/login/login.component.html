@@ -1,0 +1,35 @@
+<div class="bg-login">
+    <mat-card>
+        <div class="header">
+            <p class="mat-h1">Bienvenido al Sistema Infosec </p>
+        </div>
+        <hr>
+        <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+            <div class="nombreInput">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Usuario corporativo</mat-label>
+                    <input formControlName="nombre" matInput [type]="'nombre'" placeholder="Introducir usuario corporativo" required />
+                    <mat-error *ngIf="!loginForm.controls['nombre'].valid">
+                        El usuario es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <!-- <div>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input formControlName="password" matInput [type]=" hide ? 'password' : 'text'" required />
+                    <span mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
+                        <mat-icon>
+                            {{hide ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </span>
+                    <mat-error *ngIf="!loginForm.controls['password'].valid">
+                        La contraseña es obligatoria
+                    </mat-error>
+                </mat-form-field>
+            </div> -->
+            <button mat-flat-button color="primary">Iniciar sesión</button>
+        </form>
+    </mat-card>
+</div>

@@ -1,0 +1,41 @@
+<mat-toolbar>
+    <!--color="primary"-->
+    <mat-toolbar-row>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideBar()" *ngIf="toggleSideBarForMe | async">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <!-- <button mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button> -->
+
+        <span> <img src="assets/img/logo-fassil_4.png" alt="Logo"> </span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <!-- <li>
+                    <button mat-icon-button>
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                </li> -->
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <!-- ESTA DEMAS EL HEADER NO USA NADA EN EL TEMPLATE -->
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="cerrarSesion()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            Cerrar sesión
+                        </button>
+                    </mat-menu>
+
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

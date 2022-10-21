@@ -1,0 +1,26 @@
+.stats-cards {
+    height: 100%;
+    /* background: #cccccc8c; */
+    padding: 1em;
+    margin: 0;
+}
+mat-card a{
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
+/*Menu*/
+:host {
+  display: block;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 16px 16px;
+}
+
+input {
+  margin: 8px 0px 8px 16px;
+}
+
+button + button {
+  margin-left: 8px;
+}

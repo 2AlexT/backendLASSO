@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="10px" class="stats-cards">
+    <mat-card fxFlex="80" class="example-card">
+        <h4>Formulario de modificación de credenciales</h4>
+        <hr>
+        <form (ngSubmit)="procesarSolicitud()" [formGroup]="frmSolicitud">
+            <div>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Sistema</mat-label>
+                    <mat-select formControlName="sistema">
+                        <mat-option>Seleccione un sistema</mat-option>
+                        <mat-option *ngFor="let sistema of sistemas" [value]="sistema.alias">
+                            {{sistema.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!frmSolicitud.controls['sistema'].valid">El campo sistema es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Acción o tipo de solicitud</mat-label>
+                    <mat-select formControlName="accion">
+                        <mat-option>Seleccione una acción</mat-option>
+                        <mat-option *ngFor="let accion of acciones" [value]="accion.alias">
+                            {{accion.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!frmSolicitud.controls['sistema'].valid">El campo acción es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+            <button mat-flat-button color="primary" [disabled]="!frmSolicitud.valid">Procesar solicitud</button>
+        </form>
+    </mat-card>
+</div>

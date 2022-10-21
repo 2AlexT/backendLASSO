@@ -1,0 +1,16 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" class="stats-cards">
+    
+    <p><input type="text" id="username" name="username" [(ngModel)]="username"></p>
+<h1> {{username}}</h1>
+
+<button type="button" (click)="clickme()">Clickme</button>
+<p *ngIf="loadedPost.length < 1 && !isFetching">No Post encontrados o dentro de la API</p>
+<ul class="list-group" *ngIf="loadedPost.length >= 1 && !isFetching">
+    <li class="list-group-item" *ngFor="let post of loadedPost">
+        <h1>{{post.nombre}}</h1>
+        <p>{{post.identificador}}</p>
+    </li>
+    <p *ngIf="isFetching">Loading .....</p>
+</ul>
+
+</div>

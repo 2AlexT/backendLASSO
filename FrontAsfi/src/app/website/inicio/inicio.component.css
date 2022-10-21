@@ -1,0 +1,81 @@
+.stats-cards {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.stats-cards .mat-card {
+    overflow: hidden;
+}
+
+.example-card {
+    max-width: 400px;
+}
+.header-section{
+    height: 80px;
+    line-height: 80px;
+    color: beige;
+    background-color: rgb(46, 43, 43);
+    font-size: 24px;
+    padding-left: 20px;
+}
+
+.card{
+    background-color: white;
+    box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    color:black;
+    margin: 20px;
+    padding: 10px;
+}
+
+.uploadList{
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/*
+.bg-page {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.header {
+    text-align: center;
+}
+
+mat-card {
+    text-align: center;
+    margin: 2em;
+    max-height: 600px;
+    width: 100%;
+}
+
+@media (max-width: 960px) {
+    mat-card {
+        width: 500px;
+    }
+}
+
+@media (max-width:768px) {
+    mat-card {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    mat-card {
+        width: 90%;
+    }
+
+    .full-width {
+        width: 90%;
+    }
+}
+*/

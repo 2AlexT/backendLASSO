@@ -1,0 +1,43 @@
+<h1  class="titulo"> Artículos {{ message }}</h1>
+<hr>
+<!-- <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div> -->
+<!-- <table>
+  <thead [classList]="">
+      <tr>
+        <td>Nro</td>
+        <td>Nombre</td>
+        <td>Opciones</td>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Archivo 1</td>
+      <td>
+        <button mat-button> Ingresar</button>
+        <button mat-button> Ingresar</button>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Archivo 2</td>
+      <td>
+        <button mat-button> Ingresar</button>
+        <button mat-button> Ingresar</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Nro</td>
+      <td>Nombre</td>
+      <td>Opciones</td>
+    </tr>
+  </tfoot>
+</table> -->
+<app-table></app-table>
+<hr>
+<div mat-dialog-actions>
+  <!-- <button mat-button [mat-dialog-close]="true">SI</button> -->
+  <button class="cerrar" mat-button mat-raised-button (click)="onClickNO()" > <span> Cerrar </span> </button>
+</div>

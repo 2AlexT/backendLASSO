@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-drawer {
+  width: 350px;
+}
+
+mat-drawer-container {
+  height: 100%;
+}
+
+mat-drawer-content {
+  padding: 20px;
+  background: #cccccc8c;
+}
+
+mat-toolbar{
+  background-color: #022A5B;
+}
+mat-icon{
+  color: #FFFFFF;
+}
+
+ul li {
+  list-style: none;
+}

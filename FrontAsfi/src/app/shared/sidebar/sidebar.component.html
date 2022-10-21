@@ -1,0 +1,47 @@
+<mat-nav-list >
+    <div class="profile-card">
+        <div class="header">
+              <h2>{{usuarioAutenticado.nombre}}</h2>
+              <h4>{{usuarioAutenticado.identificador}}</h4>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>home</mat-icon>
+        INICIO
+    </a>
+   
+      <ul id="accordion" class="accordion" *ngFor="let empresa of LoadEmpresaData; let i = index;">
+        <li [class.active]="empresa.active">
+          <div class="menu" (click)="toggle(i)">
+            <mat-icon >{{"settings"}}</mat-icon> {{ empresa.nombre }}
+            <i class="fa fa-chevron-down"></i>
+          </div>
+        </li>
+      <li> 
+        <ul class="submenu" #submenu 
+          [style.height.px]="empresa.active ? submenu.scrollHeight : 0"  *ngFor="let gestion of LoadGestionData; let val = index">
+          <li>
+            <a [href]="antesUrl + gestion.identificador" *ngIf="empresa.identificador===gestion.id_empresa">{{ gestion.gestion }}</a>
+          </li>
+        </ul>
+      </li>  
+        
+       
+        
+      </ul>
+</mat-nav-list> <!-- <ul id="accordion" class="accordion" >
+  <li *ngFor="let empresa of LoadEmpresaData; let i = index;" [class.active]="empresa.active">
+    <div class="menu" (click)="toggle(i);showLog();getGestion(1)">
+          <mat-icon >{{"settings"}}</mat-icon>
+          {{ empresa.nombre }}
+      <i class="fa fa-chevron-down"></i>
+    </div>
+    <ul class="submenu" #submenu 
+      [style.height.px]="empresa.active ? submenu.scrollHeight : 0" >
+      <li *ngFor="let gestion of LoadGestionData; let val = index">
+        <a [href]="antesUrl + gestion.identificador">{{ gestion.id_empresa }}</a>
+      </li>
+    </ul>
+  </li>
+</ul> -->

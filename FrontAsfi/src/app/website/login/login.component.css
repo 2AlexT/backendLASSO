@@ -1,0 +1,55 @@
+.bg-login {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #022A5B;
+}
+
+mat-card {
+    text-align: center;
+    margin: 2em auto;
+    max-height: 600px;
+    width: 600px;
+}
+
+.header {
+    text-align: center;
+}
+
+.full-width {
+    width: 80%;
+}
+
+
+.UsuarioInput {
+    padding-top: 10px;
+}
+
+
+@media (max-width: 960px) {
+    mat-card {
+        width: 500px;
+    }
+}
+
+@media (max-width:768px) {
+    mat-card {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    mat-card {
+        width: 90%;
+    }
+
+    .full-width {
+        width: 90%;
+    }
+}
+
+
+
