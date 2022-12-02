@@ -12,8 +12,8 @@ export class empresaService{
     }
 
 
-    getEmpresa(){
-       return this.http.get('http://localhost:8080/api/v1/articulo/3/getDocumento')
+    getDocumentoList(){
+       return this.http.get('http://localhost:8080/api/v1/articulo/:id_articulo/getDocumento')
        .pipe(
         map((responseData)=>{
             const getArray: documento[] = [] ;

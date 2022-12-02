@@ -8,35 +8,7 @@ const dotenv= require('dotenv')
 const { promisify } = require('util');
 const multer =require('multer')
 
-let diskStorage = multer.diskStorage({
-    destination: function(req,file,cb){
-        cb(null,'upload')
-    },
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + '.' + file.originalname);
-    },
-})
 
-let upload = multer({storage:diskStorage}).single('file')
-
-const uploadFile= async(req,res,next)=>{
-    upload(req,res,function(err){
-        if(err){
-            return res.status(501).json({error:err})
-        }
-        try{
-            createNewDocumento(req,res)
-        }catch(err){
-            res.status(401).json({message:"Error al subir data"})
-        }
-        
-      
-    })   
-}
-
-const downloadFile=async (req,res)=>{
-
-}
 
 const getDocumentos= async (req,res)=> {
     try{
@@ -67,12 +39,12 @@ const createNewDocumento =async (req,res)=>{
         const documentoNombre = req.file.filename
         const descripcion = null
         const rutaUrl=req.file.path
-        
+        console.log("PSAO A CREAR DOCUMENTO")
         if (documentoNombre.match(/^ *$/) !== null){//Verificar cuando tenga espacios igual preguntar**
             return res.status(401).json({msg:'Bad request. Pleas fill all fields'})
         }
-        console.log(req.headers)
-        console.log(req.headers.cookie  )
+        console.log(req.headers.authorization)
+        
         if(req.headers.authorization===undefined){return res.status(401).json({ERROR:"ERROR"})}
         let token=req.headers.authorization.split(' ')[1];
     const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
@@ -109,7 +81,7 @@ const createNewDocumento =async (req,res)=>{
         }
     }
 }catch (err){
-        logger.error(err)
+    res.status(401).json({message:"Ya existe documento con el mismo nombre"}) 
     }
 }
 
@@ -162,4 +134,147 @@ const modificarDocumento =async (req,res)=>{
         logger.error(err)
     }
 }
-module.exports={uploadFile,getDocumentos,createNewDocumento,modificarDocumento}
+
+const eliminarDocumentos =async (req,res)=>{
+    try{
+        const id_articulo=Number(req.params.id_articulo)
+        const {nombreDocumento}= req.body
+        if(isNaN(id_articulo)){
+            res.status(401).json({Error:"Incluir un numero de verdad"})
+        }
+        token=req.headers.authorization.split(' ')[1];
+        const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
+        console.log(decoded.id.identificador)
+    const pool = await getConnection();
+    const resultArticuloExiste = await pool.request()
+    .input("id_articulo",sql.Int,id_articulo)
+    .query(`select identificador from asfi_articulo where identificador=@id_articulo and indicador='A'`)
+    //Averiguar sobre id empresa y nombre empresa
+    if(!resultArticuloExiste.recordset[0]){
+        res.json({message:'articulo con id no existe'})
+    }else{
+        const resultDocumentoExiste= await pool.request()
+        .input("nombreDocumento",sql.Int,nombreDocumento)
+        .input("id_articulo",sql.Int,id_articulo)
+        .query(`select identificador from asfi_documento where nombre=@nombreDocumento and indicador='A' and id_articulo=@id_articulo`)
+        if(!resultDocumentoExiste.recordset[0]){
+            res.json({message:"Empresa con seccion no existe o ya dada de alta"})
+        }else{
+            console.log(resultDocumentoExiste.recordset[0]["identificador"])
+            await pool
+            .request()
+            .input("I_proceso",sql.Int,1)
+            .input("I_identificador",sql.Int,resultDocumentoExiste.recordset[0]["identificador"])
+            .input("I_id_articulo",sql.VarChar,id_articulo)
+            .input("I_nombre",sql.VarChar,nombreDocumento)
+            .input("I_ruta",sql.VarChar,"")
+            .input("I_descripcion",sql.VarChar,"Dado de alta")
+            .input("I_usuario",sql.Int,decoded.id.identificador)
+            .input("I_origen",sql.TinyInt,1)
+            .output("O_msg_error",sql.VarChar)
+            .execute("segabm_documento")
+            res.json({message:`Se dio de alt el documento ${nombreDocumento}`})
+        }
+    }
+    }catch (err){
+        logger.error(err)
+    }
+}
+
+//-----------------------UPLOADFILES
+// let diskStorage = multer.diskStorage({
+//     destination: function(req,file,cb){
+//         cb(null,'upload')
+//     },
+//     filename: function(req, file, cb) {
+//         cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+//     },
+// })
+
+
+// let upload = multer({storage:diskStorage}).single('file')
+let diskStorage = multer.diskStorage({
+    destination: function(req,file,cb){
+             cb(null,'upload')
+         },
+    filename: function(req, file, cb){
+      cb(null, file.originalname + "-" + Date.now() + path.extname(file.originalname))
+    }
+})
+const maxSize=1*1024*1024 // aprox 1MB
+let upload = multer({
+    storage:diskStorage,
+    fileFilter:(req,file,cb)=>{
+        console.log(file.originalname.match(/\./g).length)
+        if(file.mimetype =="image/png" || file.mimetype =="application/pdf" && file.originalname.match(/\./g).length<2){
+            cb(null,true);
+        }else{
+            cb(null,false);
+            return cb(new Error('Only png o pdf'))
+        }
+    },
+    limits:{fileSize:maxSize}
+}).single('file')
+
+const uploadFile= async(req,res,next)=>{
+upload (req,res,function (err){
+    if(err instanceof multer.MulterError){
+        return res.status(501).json({error:err})
+    }else if(err){
+        return res.status(501).json({error:err})
+    }
+    try{        
+        createNewDocumento(req,res)
+        console.log(req.file)
+    }catch(err){
+        res.status(401).json({message:"Error al subir data"})
+    }  
+})   
+}
+
+//--Seleccionar archivos desde la base de datos
+const archivos= async(req,res)=>{
+    const id_articulo= Number(req.params.id_articulo)
+    const pool = await getConnection();
+    const filesFromDB = await pool.request()
+    .input("id_articulo",sql.Int,id_articulo)
+    .query(`select nombre_archivo from asfi_documento where id_articulo=@id_articulo and indicador='A'`)
+    return filesFromDB.recordset
+}
+//
+
+const fs = require('fs');
+const listaDocumentosId= async (req,res)=>{
+    try{
+    const filesFromDB=await archivos(req,res)
+    console.log(filesFromDB)
+    let val=[]
+    val= filesFromDB.map(Object=>Object.nombre_archivo)
+    const files = fs.readdirSync('upload'); 
+    console.log(files)
+    //Comparando Arrays
+    const nombresIguales=val.filter(Element=>files.includes(Element));
+    console.log(nombresIguales)
+    if(nombresIguales.length !== 0){
+        res.json(nombresIguales)
+    }else{  
+        res.json({message:"Nombres iguales no encontrados"})
+    }
+    }catch(err){
+        res.status(401).json({message:"Problemas al descargar"})
+    }
+}
+//DEscargas
+const donwloads=async (req,res)=>{
+    try{
+    filepath=path.join(__dirname,'../../upload') + "\\" + req.body.filename;
+    console.log(__dirname  )
+    res.sendFile(filepath); 
+    }catch(err){
+        res.status(401).json({message:"Problemas al descargar"})
+    }
+}
+
+
+
+module.exports={donwloads,uploadFile,listaDocumentosId,getDocumentos,createNewDocumento,modificarDocumento}

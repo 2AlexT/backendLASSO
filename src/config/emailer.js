@@ -18,6 +18,7 @@ const createTrans=()=>{
 }
 
 const sendMail = async(req,res)=>{
+    try{
     const transporter=createTrans();
     const info=await transporter.sendMail({
         from:req.body.nombre + "@fassil.com.bo",
@@ -27,6 +28,9 @@ const sendMail = async(req,res)=>{
     })
     console.log("Message send : %s", info.messageId)
     return res.json({msg:"mensaje enviado"})
+    }catch(err){
+        res.json({message:"Error al enviar mensaje"})
+    }
 }
 module.exports={
     sendMail:sendMail,

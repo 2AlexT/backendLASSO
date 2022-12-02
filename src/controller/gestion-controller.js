@@ -61,7 +61,7 @@ const createNewGestion =async (req,res)=>{
     .input("id_empresa",sql.VarChar,id_empresa)
     .query(`select * from asfi_empresa where identificador=@id_empresa and indicador='A'`)
     //Averiguar sobre id empresa y nombre empresa
-    if(!resultNombreEmpresa.recordset[0]){
+    if(!resultNombreEmpresa.recordset[0]){     
         res.json({message:'Empresa con id no existe'})
     }else{
         const resultGestionExiste= await pool.request()

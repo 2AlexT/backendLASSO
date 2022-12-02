@@ -9,13 +9,14 @@ const uri='http://localhost:8080/api/v1/articulo/3/articulo/upload'
 })
 export class InicioComponent implements OnInit {
   breakpoint: number = 2;
-  uploader:FileUploader=new FileUploader({url:uri})
+  uploader:FileUploader=new FileUploader({url:uri,headers:[{name:'Authorization', value:'Bearer ' + localStorage.getItem('accessToken')}]})
   attachmentList:any=[]
   constructor() {
       this.uploader.onCompleteItem= (item:any,response:any,status:any,headers:any)=>{
       this.attachmentList.push(JSON.parse(response));
     }
-  }
+  
+}
 
 
 
@@ -41,6 +42,7 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.breakpoint = (window.innerWidth <= 400) ? 1 : 2;
+    console.log(Headers)
   }
 
   onResize(event:any) {

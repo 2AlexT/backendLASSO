@@ -22,7 +22,7 @@ exports.login=async(req,res,next)=>{
         return next(new AppError('Porfa poner usuario AD',400))
     }
     //Si existe el usuario en LDAP
-    client.bind("Dilan Alexander Peredo Flores","Turning point123@",function(err){
+    client.bind("Dilan Alexander Peredo Flores","Turning point@",function(err){
         if(err){
             logger.error(err)
             return next(new AppError('Error al conectarse al ldap',400))

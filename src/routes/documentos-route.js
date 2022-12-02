@@ -11,6 +11,9 @@ const router=express.Router({mergeParams:true});
     router.post('/articulo/:id_articulo/articulo/modificarDocumento',ldapController.protect,documentoController.modificarDocumento)
     router.post('/articulo/:id_articulo/articulo/darDeAltaDocumento',ldapController.protect)
     router.post('/articulo/:id_articulo/articulo/upload',documentoController.uploadFile)
+    router.get('/:id_articulo/listaDocumentosId',documentoController.listaDocumentosId)
+    router.post('/downloads',documentoController.donwloads)
+  
     //router.delete('/users')
     //router.patch('/users')
 module.exports= router
