@@ -10,19 +10,20 @@
 
         <span> <img src="assets/img/logo-fassil_4.png" alt="Logo"> </span>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-            <ul fxLayout="row" fxLayoutGap="20px">
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" class="div_ml">
+            <ul fxLayout="row" >
                 <!-- <li>
                     <button mat-icon-button>
                         <mat-icon>settings</mat-icon>
                     </button>
-                </li>
-                <li>
-                    <button mat-icon-button>
-                        <mat-icon>help_outline</mat-icon>
-                    </button>
                 </li> -->
-                <li>
+                <li class="li_ml">
+                    <button mat-icon-button>
+                        <!-- <mat-icon (click)="mostrar=!mostrar" class="animat">mail</mat-icon> -->
+                        <mat-icon (click)="openDialog()" class="animat">mail</mat-icon>
+                    </button>
+                </li>
+                <li >
                     <button mat-button [matMenuTriggerFor]="menu">
                         <mat-icon>person_outline</mat-icon>
                     </button>
@@ -46,7 +47,12 @@
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-        <router-outlet></router-outlet>
+
+        <router-outlet>
+          <!-- CONTENIDO -->
+          <!-- Plantilla dashboard -->
+        </router-outlet>
+
     </mat-drawer-content>
 </mat-drawer-container>
 <app-footer></app-footer>

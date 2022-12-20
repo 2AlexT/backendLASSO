@@ -77,16 +77,25 @@ const createNewArticulo =async (req,res)=>{
     }
 }
 
-
+containsObjectSeccion=(obj, list)=> {
+    let i; let val=false
+    for (i = 0; i < list.length; i++) {
+        if (list[i].articulo == obj) {
+            val= true;
+        }
+    }
+    return val
+}
 
 const modificarArticulo =async (req,res)=>{
     try{
         const id_seccion=Number(req.params.id_seccion)
+        const id_articulo=Number(req.params.id_articulo)
         if(isNaN(id_seccion)){
             res.status(401).json({Error:"Incluir un numero de verdad"})
         }
-        const {articulo,newArticulo}=req.body
-        if (typeof(articulo)!== 'number' || typeof(newArticulo)!== 'number' || articulo===newArticulo){
+        const {articulo}=req.body
+        if (typeof(articulo)!== 'number' || typeof(id_articulo)!== 'number'){
             return res.status(400).json({msg:'Bad request. Pleas fill all fields'})
         }
         token=req.headers.authorization.split(' ')[1];
@@ -97,31 +106,44 @@ const modificarArticulo =async (req,res)=>{
     .input("id_seccion",sql.Int,id_seccion)
     .query(`select identificador from asfi_seccion where identificador=@id_seccion and indicador='A'`)
     //Averiguar sobre id empresa y nombre empresa
+   
     if(!resultSeccionExiste.recordset[0]){
         res.json({message:'seccion con id no existe'})
     }else{
         const resultArticuloExiste= await pool.request()
-        .input("articulo",sql.Int,articulo)
+        .input("id_articulo",sql.Int,id_articulo)
         .input("id_seccion",sql.Int,id_seccion)
-        .query(`select * from asfi_articulo where articulo=@articulo and indicador='A' and id_seccion=@id_seccion`)
+        .query(`select * from asfi_articulo where identificador=@id_articulo and indicador='A' and id_seccion=@id_seccion`)
+        
+        articuloNombre=resultArticuloExiste.recordset[0]["articulo"]
+        console.log("paso primer articulo")
+        const listaNombresArticulo=await pool.request()
+        .input("articuloNombre",sql.VarChar,articuloNombre)
+        .query(`select articulo from asfi_articulo where indicador='A' and identificador!=@articuloNombre`)
+        
         if(!resultArticuloExiste.recordset[0]){
             res.json({message:"Seccion con articulo no existe"})
         }else{
+            if(containsObjectSeccion(articulo,listaNombresArticulo.recordset)){
+                res.status(402).json({message:"Articulo tiene mismo nombre a otros"})
+            }else{
                 await pool
                 .request()
                 .input("I_proceso",sql.Int,1)
-                .input("I_identificador",sql.Int,resultArticuloExiste.recordset[0]["identificador"])
+                .input("I_identificador",sql.Int,id_articulo)
                 .input("I_id_seccion",sql.VarChar,id_seccion)
-                .input("I_articulo",sql.Int,newArticulo)
+                .input("I_articulo",sql.Int,articulo)
                 .input("I_usuario",sql.Int,decoded.id.identificador)
                 .input("I_origen",sql.Int,0)
                 .output("O_msg_error",sql.VarChar)
                 .execute("segabm_articulo")
-                res.json({message:`Se modifico el articulo :'${articulo}' al siguiente valor :${newArticulo}`})
+                res.json({message:`Se modifico el articulo '${resultArticuloExiste.recordset[0]["articulo"]}' al siguiente valor ${articulo}`})
+            }    
         }
     }
 }catch (err){
         logger.error(err)
+        console.log(err)
     }
 }
 
@@ -129,11 +151,11 @@ const modificarArticulo =async (req,res)=>{
 const articuloDarDeAlta =async (req,res)=>{
     try{
         const id_seccion=Number(req.params.id_seccion)
+        const id_articulo=Number(req.params.id_articulo)
         if(isNaN(id_seccion)){
             res.status(401).json({Error:"Incluir un numero de verdad"})
         }
-        const {articulo}=req.body
-        if (typeof(articulo)!== 'number'){
+        if (typeof(id_articulo)!== 'number'){
             return res.status(400).json({msg:'Bad request. Pleas fill all fields'})
         }
         token=req.headers.authorization.split(' ')[1];
@@ -148,28 +170,28 @@ const articuloDarDeAlta =async (req,res)=>{
         res.json({message:'Seccion con id no existe'})
     }else{
         const resultArticuloExiste= await pool.request()
-        .input("articulo",sql.Int,articulo)
+        .input("id_articulo",sql.Int,id_articulo)
         .input("id_seccion",sql.Int,id_seccion)
-        .query(`select identificador from asfi_articulo where articulo=@articulo and indicador='A' and id_seccion=@id_seccion`)
+        .query(`select identificador from asfi_articulo where identificador=@id_articulo and indicador='A' and id_seccion=@id_seccion`)
         if(!resultArticuloExiste.recordset[0]){
             res.json({message:"Seccion con articulo no existe o ya dada de alta"})
         }else{
-            console.log(resultArticuloExiste.recordset[0]["identificador"])
             await pool
             .request()
             .input("I_proceso",sql.Int,2)
-            .input("I_identificador",sql.Int,resultArticuloExiste.recordset[0]["identificador"])
+            .input("I_identificador",sql.Int,id_articulo)
             .input("I_id_seccion",sql.VarChar,id_seccion)
-            .input("I_articulo",sql.Int,articulo)
+            .input("I_articulo",sql.Int,id_articulo)
             .input("I_usuario",sql.Int,decoded.id.identificador)
             .input("I_origen",sql.Int,0)
             .output("O_msg_error",sql.VarChar)
             .execute("segabm_articulo")
-            res.json({message:`Se dio de alta la gestion : '${articulo}' de la empresa`})
+            res.json({message:`Se dio de alta el articulo  '${id_articulo}' de la empresa`})
         }
     }
     }catch (err){
         logger.error(err)
+        console.log(err)
     }
 }
 module.exports={getArticulo,createNewArticulo,modificarArticulo,articuloDarDeAlta}

@@ -65,8 +65,9 @@ const createNewEmpresa =async (req,res,next)=>{
 
 const modificarEmpresa =async (req,res)=>{
     try{
-     const {nombreEmpresa,newNombreEmpresa}=req.body
-    if (nombreEmpresa.match(/^ *$/) !== null || newNombreEmpresa.match(/^ *$/) !== null){//Verificar cuando tenga espacios igual preguntar**
+        const id_empresa= Number(req.params.id_empresa) 
+        const {empresa}=req.body
+    if (empresa.match(/^ *$/) !== null ){//Verificar cuando tenga espacios igual preguntar**
         return res.status(400).json({msg:'Bad request. Pleas fill all fields'})
     }
     const pool = await getConnection();
@@ -74,23 +75,23 @@ const modificarEmpresa =async (req,res)=>{
     const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
     console.log(decoded.id.identificador)
     const result = await pool.request()
-    .input("nombreEmpresa",sql.VarChar,nombreEmpresa)
-    .query(`select identificador from asfi_empresa where nombre=@nombreEmpresa and indicador='A'`)
+    .input("id_empresa",sql.VarChar,id_empresa)
+    .query(`select * from asfi_empresa where identificador=@id_empresa and indicador='A'`)
     if(!result.recordset[0]){
         res.json({mess:'No se encuentra la empresa'})
     }else{
     await pool
     .request()
     .input("I_proceso",sql.Int,1)
-    .input("I_identificador",sql.Int,result.recordset[0]["identificador"])
-    .input("I_nombre",sql.VarChar,newNombreEmpresa)
+    .input("I_identificador",sql.Int,id_empresa)
+    .input("I_nombre",sql.VarChar,empresa)
     .input("I_usuario",sql.Int,decoded.id.identificador)
     .input("I_origen",sql.Int,0)
     .output("O_msg_error",sql.VarChar)
     .execute("segabm_empresa")
    
     res.json({
-        result:{message: `Empresa ${nombreEmpresa} paso a ser : ${newNombreEmpresa}`}
+        result:{message: `Empresa ${result.recordset[0]["nombre"]} paso a ser : ${empresa}`}
     }) 
 }
     }catch (err){
@@ -101,17 +102,13 @@ const modificarEmpresa =async (req,res)=>{
 
 const darDeAltaEmpresa =async (req,res)=>{
     try{
-     const {nombreEmpresa}=req.body
-    if (nombreEmpresa.match(/^ *$/) !== null){//Verificar cuando tenga espacios igual preguntar**
-        return res.status(400).json({msg:'Bad request. Pleas fill all fields'})
-    }
+    const id_empresa=Number(req.params.id_empresa) 
     const pool = await getConnection();
     token=req.headers.authorization.split(' ')[1];
     const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
-    console.log(decoded.id.identificador)
     const result = await pool.request()
-    .input("nombreEmpresa",sql.VarChar,nombreEmpresa)
-    .query(`select identificador from asfi_empresa where nombre=@nombreEmpresa and indicador='A'`)
+    .input("id_empresa",sql.VarChar,id_empresa)
+    .query(`select * from asfi_empresa where identificador=@id_empresa and indicador='A'`)
     if(!result.recordset[0]){
         res.json({mess:'Empresa ya dada de baja'})
     }else{
@@ -119,15 +116,15 @@ const darDeAltaEmpresa =async (req,res)=>{
     await pool
     .request()
     .input("I_proceso",sql.Int,2)
-    .input("I_identificador",sql.Int,result.recordset[0]["identificador"])
-    .input("I_nombre",sql.VarChar,nombreEmpresa)
+    .input("I_identificador",sql.Int,id_empresa)
+    .input("I_nombre",sql.VarChar,result.recordset[0]["nombre"])
     .input("I_usuario",sql.Int,decoded.id.identificador)
     .input("I_origen",sql.Int,0)
     .output("O_msg_error",sql.VarChar)
     .execute("segabm_empresa")
    
     res.json({
-        result:{message: `Empresa ${nombreEmpresa} dada de baja`}
+        result:{message: `Empresa ${result.recordset[0]["nombre"]} dada de baja`}
     }) 
 }
     }catch (err){

@@ -14,7 +14,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from "@angular/material/sort";
-import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel} from '@angular/material/form-field';
+import { NgxPaginationModule } from "ngx-pagination";
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
         MatPaginatorModule,
         MatSortModule,
         MatFormFieldModule,
+        NgxPaginationModule,
     ],
     exports: [
         CommonModule,
@@ -52,7 +55,8 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
         DragDropModule,
         MatPaginatorModule,
         MatSortModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        NgxPaginationModule,
     ],
 })
 export class MaterialModule { }

@@ -1,0 +1,69 @@
+<!-- <mat-card>
+  <div class="justi"  (click)="openDialog();mostrar=!mostrar">
+    <h1 class="texto1">SECCIONES | Lista</h1>
+    <hr><br>
+    <div class="example-box mb" cdkDragLockAxis="y" cdkDrag *ngFor="let seccion of LoadSeccionData" (click)="SeccionE(seccion.identificador)">
+      <h2 class="texto"> Sección {{ seccion.seccion }} <a [href]="UrlGestion + seccion.identificador ">Link</a> </h2> <br>
+    </div>
+  </div>
+</mat-card>
+<br> -->
+
+<mat-card>
+  <div class="justi">
+    <h1 class="texto1">SECCIONES | Lista</h1>
+    <hr><br>
+
+    <section class="flex-container" >
+      <div class="box" *ngFor="let seccion of LoadSeccionData"  (click)="SeccionE(seccion.identificador)" >
+        
+        <a *ngIf="seccion.identificador != undefined" [href]="UrlGestion + seccion.identificador" class="a_seccion">
+        <!-- No olvidar ordenar con sort o algo asi -->
+        Sección {{ seccion.seccion }}
+      </a>
+      </div>
+    </section>
+  </div>
+</mat-card>
+<br>
+
+
+  <!-- <button (click)="mostrar= !mostrar"></button>
+  <p *ngIf="mostrar">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores enim sint quaerat dolore illo doloribus officia natus dolor tempore? Repellendus soluta neque dicta assumenda libero ex debitis facere. Culpa, asperiores?</p> -->
+
+  <!-- <app-articulos></app-articulos> -->
+
+  <!-- CONTENIDO DE CARRUSEL CON CONTENIDO DE TABLA -->
+
+  <!-- <mat-card>
+    <mat-tab-group mat-align-tabs="start">
+          <mat-tab label="SECCION" *ngFor="let seccion of LoadSeccionData;">
+          <br>
+            <div class="example-box mb" cdkDragLockAxis="y" cdkDrag *ngFor="let seccion of LoadSeccionData">
+              <h2 class="texto">Sección {{ seccion.seccion }}</h2><br>
+            </div>
+          </mat-tab>
+    </mat-tab-group>
+  </mat-card> -->
+
+  <!-- <section class="flex-container"  >
+    <div class="box">
+      Sección 1
+    </div>
+    <div class="box">
+      Sección2
+    </div>
+    <div class="box">
+      Sección2
+    </div>
+    <div class="box">
+      Sección3
+    </div>
+    <div class="box">
+      Sección4
+    </div>
+    <div class="box">
+      Sección5
+    </div>
+  </section> -->
+

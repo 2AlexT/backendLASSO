@@ -43,12 +43,10 @@ const createNewDocumento =async (req,res)=>{
         if (documentoNombre.match(/^ *$/) !== null){//Verificar cuando tenga espacios igual preguntar**
             return res.status(401).json({msg:'Bad request. Pleas fill all fields'})
         }
-        console.log(req.headers.authorization)
-        
         if(req.headers.authorization===undefined){return res.status(401).json({ERROR:"ERROR"})}
         let token=req.headers.authorization.split(' ')[1];
-    const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
-   
+        const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET_ACCESS_TOKEN)
+        
     const pool = await getConnection();
     const resultArticuloExiste = await pool.request()
     .input("id_articulo",sql.Int,id_articulo)
@@ -57,11 +55,13 @@ const createNewDocumento =async (req,res)=>{
     if(!resultArticuloExiste.recordset[0]){
         res.status(401).json({message:'Articulo inexistente'})
     }else{
+    
         const resultDocumentoExiste= await pool.request()
-        .input("nombreDocumento",sql.VarChar,documentoNombre)
+        .input("documentoNombre",sql.VarChar,documentoNombre)
         .input("id_articulo",sql.Int,id_articulo)
-        .query(`select identificador from asfi_documento where nombre_archivo=@nombreDocumento and indicador='A' and id_articulo=@id_articulo`)
-       
+        .query(`select identificador from asfi_documento where nombre_archivo=@documentoNombre and indicador='A' and id_articulo=@id_articulo`)
+        console.log("AQUI ESTA ARRIBA DEL DOCUMENTO EXISTE")
+        console.log("VALOR RECORDSET +" +resultDocumentoExiste.recordset[0])
         if(!resultDocumentoExiste.recordset[0]){
             await pool
             .request()
@@ -75,13 +75,13 @@ const createNewDocumento =async (req,res)=>{
             .input("I_origen",sql.TinyInt,1)
             .output("O_msg_error",sql.VarChar)
             .execute("segabm_documento")
-            res.json({message:'Se añadio un nuevo documento'}) 
+            res.status(201).json({message:'Se añadio un nuevo documento'}) 
         }else{
             res.status(401).json({message:"Ya existe documento con el mismo nombre"})           
         }
     }
 }catch (err){
-    res.status(401).json({message:"Ya existe documento con el mismo nombre"}) 
+    res.status(401).json({message:err}) 
     }
 }
 
@@ -91,7 +91,7 @@ const modificarDocumento =async (req,res)=>{
         if(isNaN(id_articulo)){
             res.status(401).json({Error:"Incluir un numero de verdad"})
         }
-        const {documento,newDocumentoName}=req.body
+        const {documento,newDocumentoName,descripcion}=req.body
         if (documento.match(/^ *$/) !== null || newDocumentoName.match(/^ *$/) !== null){//Verificar cuando tenga espacios igual preguntar**
             return res.status(401).json({msg:'Bad request. Pleas fill all fields'})
         }
@@ -115,14 +115,15 @@ const modificarDocumento =async (req,res)=>{
         if(!resultDocumentoExiste.recordset[0]){
             res.json({message:"Articulo con documento no existe o esta modificado"})
         }else{
+                console.log("Aqui estan la ruta : "+resultDocumentoExiste.recordset[0].ruta_archivo)
                 await pool
                 .request()
                 .input("I_proceso",sql.Int,1)
                 .input("I_identificador",sql.Int,resultDocumentoExiste.recordset[0]["identificador"])
                 .input("I_id_articulo",sql.VarChar,id_articulo)
                 .input("I_nombre",sql.VarChar,newDocumentoName)
-                .input("I_ruta",sql.VarChar,"randomw")
-                .input("I_descripcion",sql.VarChar,"Prueba")
+                .input("I_ruta",sql.VarChar,resultDocumentoExiste.recordset[0].ruta_archivo)
+                .input("I_descripcion",sql.VarChar,descripcion)
                 .input("I_usuario",sql.Int,decoded.id.identificador)
                 .input("I_origen",sql.TinyInt,1)
                 .output("O_msg_error",sql.VarChar)
@@ -205,7 +206,7 @@ const maxSize=1*1024*1024 // aprox 1MB
 let upload = multer({
     storage:diskStorage,
     fileFilter:(req,file,cb)=>{
-        console.log(file.originalname.match(/\./g).length)
+        console.log("ENTRO AL FILEFILTER")
         if(file.mimetype =="image/png" || file.mimetype =="application/pdf" && file.originalname.match(/\./g).length<2){
             cb(null,true);
         }else{
@@ -222,13 +223,14 @@ upload (req,res,function (err){
         return res.status(501).json({error:err})
     }else if(err){
         return res.status(501).json({error:err})
-    }
+    }else{
     try{        
         createNewDocumento(req,res)
         console.log(req.file)
     }catch(err){
         res.status(401).json({message:"Error al subir data"})
     }  
+    }
 })   
 }
 
@@ -242,8 +244,10 @@ const archivos= async(req,res)=>{
     return filesFromDB.recordset
 }
 //
+//
 
 const fs = require('fs');
+
 const listaDocumentosId= async (req,res)=>{
     try{
     const filesFromDB=await archivos(req,res)
@@ -254,11 +258,13 @@ const listaDocumentosId= async (req,res)=>{
     console.log(files)
     //Comparando Arrays
     const nombresIguales=val.filter(Element=>files.includes(Element));
-    console.log(nombresIguales)
+    const newNombresIguales=nombresIguales.map(function(row){
+        return {nombre_archivo:row}
+    })
     if(nombresIguales.length !== 0){
-        res.json(nombresIguales)
+        res.json(newNombresIguales)
     }else{  
-        res.json({message:"Nombres iguales no encontrados"})
+        res.json([])
     }
     }catch(err){
         res.status(401).json({message:"Problemas al descargar"})

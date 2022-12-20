@@ -23,23 +23,6 @@ export class InicioComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ngOnInit(): void {
     this.breakpoint = (window.innerWidth <= 400) ? 1 : 2;
     console.log(Headers)

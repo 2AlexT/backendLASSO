@@ -28,7 +28,8 @@ import {
   SeleccionarYearComponent,
 } from './website/modulos/seccion1/seleccionar-year/seleccionar-year.component';
 import { authInterceptor } from './interceptors/token.interceptor';
-
+import { SeccionComponent } from './website/modulos/gestion/seccion/seccion.component';
+import { DocumentoComponent } from './website/modulos/gestion/seccion/articulos/documentos/documento.component';
 //nuevo
 
 
@@ -39,7 +40,9 @@ import { authInterceptor } from './interceptors/token.interceptor';
     ModalErrorComponent,
     BlankLayoutComponent,
     SeleccionarYearComponent,
-
+    SeccionComponent,
+    DocumentoComponent
+    
   ],
   imports: [
     FileUploadModule,

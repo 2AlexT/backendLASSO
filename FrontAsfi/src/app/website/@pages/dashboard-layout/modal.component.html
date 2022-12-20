@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Enviar un correo {{ message }}</h1>
+<hr />
+<!-- <mat-card *ngIf="mostrar"> -->
+  <!-- <form > -->
+    <form [formGroup]="datos" >
+      <div class="flex-container">
+        <div class="box">
+          <button mat-raised-button color="primary" type="submit" class="boton" (click)="enviocorreo()" >
+            Enviar
+          </button>
+        </div>
+        <div class="box1">
+          <mat-form-field class="example-full-width" style="width: 100%">
+            <mat-label>Para: </mat-label>
+            <input matInput value="" placeholder="Ej. usuario@prueba.com" formControlName="correo" />
+          </mat-form-field>
+        </div>
+        <div class="box2">
+          <div>
+            <mat-form-field class="example-full-width" style="width: 100%">
+              <mat-label>Asunto: </mat-label>
+              <input matInput value="" placeholder="Ej. usuario@prueba.com" formControlName="asunto" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="box3">
+          <mat-form-field
+            class="example-full-width"
+            style="width: 100%; height: 75rem"
+          >
+            <mat-label>Detalle contenido:</mat-label>
+            <textarea matInput placeholder="Cuerpo de mensaje" cols="60" rows="10" formControlName="mensaje">
+    Hola, ..</textarea
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <hr />
+    </form>
+
+<div mat-dialog-actions>
+  <button class="cerrar" mat-button mat-raised-button (click)="onClickNO()">
+    <span class="ts"> Cerrar </span>
+  </button>
+</div>

@@ -1,4 +1,5 @@
 export interface getGestion{
+    active: boolean;
     id?:string,
     identificador: number,
     fecha_proceso: string,
@@ -10,4 +11,7 @@ export interface getGestion{
     fecha_alta: string,
     usuario: number,
     usuario_mod: number,
+}
+export interface Menu{
+  active: boolean,
 }

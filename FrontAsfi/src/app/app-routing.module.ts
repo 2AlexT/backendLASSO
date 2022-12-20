@@ -29,7 +29,8 @@ const routes: Routes = [
   },
   {
     path: 'asfi',
-    loadChildren: () => import('src/app/website/modulos/seccion1/seccion1.module').then(m => m.Seccion1Module), canActivate: [AuthGuard]
+    loadChildren: () => import('src/app/website/modulos/gestion/gestion.module').then(m => m.GestionModule) ,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

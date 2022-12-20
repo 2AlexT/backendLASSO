@@ -37,6 +37,7 @@ app.use(express.json({limit:'10kb'}));
 app.use(express.urlencoded({extended:false}))
 app.use(xss());
 app.use(hpp());
+app.use(helmet());
 app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 
 app.get('/',(req,res)=>{

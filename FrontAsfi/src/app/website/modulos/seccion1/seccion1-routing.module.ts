@@ -1,20 +1,16 @@
 import { NgModule } from '@angular/core';
-import {
-  RouterModule,
-  Routes,
-} from '@angular/router';
+import { RouterModule, Routes,} from '@angular/router';
 
 //componentes
 import { DashboardLayoutComponent,} from 'src/app/website/@pages/dashboard-layout/dashboard-layout.component';
-import {  AypCredencialesComponent,} from 'src/app/website/modulos/seccion1/ayp-credenciales/ayp-credenciales.component';
-
+import { AypCredencialesComponent,} from 'src/app/website/modulos/seccion1/ayp-credenciales/ayp-credenciales.component';
 import { DosMilVeinteComponent } from './2020/2020.component';
 import { ArticulosComponent } from './2020/articulos/articulos.component';
 import { DosMilVeinteUnoComponent } from './2021/2021.component';
 
 const routes: Routes = [
   {
-    path: 'BancoFassil', component: DashboardLayoutComponent,
+    path: 'Empresa/Gestion', component: DashboardLayoutComponent,
     //canActivate: [RedirigirNoAutorizadoAlLoginGuard],
     children:[
       {

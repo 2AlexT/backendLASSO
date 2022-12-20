@@ -1,0 +1,97 @@
+<mat-card>
+  <div>
+    <h1 class="centro">ARTÍCULOS | Lista</h1>
+    <hr hidden />
+
+    <!-- BUSCADOR -->
+    <div class="fr">
+      <nav>
+        <Label
+          >Buscar:<mat-icon fontIcon="search" class="mb1"></mat-icon>
+        </Label>
+        <input
+          type="text"
+          name="articulo"
+          [(ngModel)]="articulo"
+          (ngModelChange)="Search()"
+          placeholder="Ingresa el Nro. del artículo"
+          class="inputs"
+        />
+      </nav>
+    </div>
+    <br />
+    <br />
+    <hr />
+
+    <div class="scrolls">
+      <!-- TABLA -->
+      <table>
+        <thead [classList]="">
+          <tr>
+            <th ngClass="center" (click)="Sort('id')">
+              Articulo &nbsp;<mat-icon
+                fontIcon="filter_list"
+                class="mb1"
+              ></mat-icon>
+            </th>
+            <th ngClass="center" (click)="Sort('Fecha')">
+              Fecha &nbsp;<mat-icon
+                fontIcon="filter_list"
+                class="mb1"
+              ></mat-icon>
+            </th>
+            <!-- <th ngClass="center">Fecha Proceso</th> -->
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <ul *ngIf articulos.id_seccion = seccion.identificador> -->
+        
+          <tr
+            *ngFor="
+              let articulos of LoadArticuloData
+                | orderBy: key:reverse
+                | paginate: { itemsPerPage: 7, currentPage: page }; let i = index
+              ;
+                "
+          >
+            <td >
+                {{ articulos.articulo }}        
+            </td>
+
+            <td>{{ articulos.fecha_proceso }} 
+              <div>
+              <h1 *ngIf="articulos.identificador==LoadDocumentoCantidad[i].identificador && articulos.identificador!=undefined;">{{LoadDocumentoCantidad[i].data}}/{{docCantidad}}</h1>
+              <!-- <div class ="first" *ngFor="let documentos of LoadDocumentoData">
+                <div [ngStyle]="{'width.%':width}" class="second"></div>
+              </div> -->
+            </div>
+            </td>
+
+            <td ngClass="center" *ngIf="articulos.identificador==LoadDocumentoCantidad[i].identificador;">
+              <a [href]="rutaUrl + articulos.identificador"> Abrir </a>
+            </td>
+          </tr>
+          <!-- </ul> -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <th ngClass="center">Articulo</th>
+            <th ngClass="center">Fecha</th>
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <pagination-controls
+      (pageChange)="page = $event"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"
+    >
+    </pagination-controls>
+  </div>
+</mat-card>
+<br>
+<br>
+
+<!-- AQUI EMPIEZA LA PRACTICA DEL PROGREESS BARR -->

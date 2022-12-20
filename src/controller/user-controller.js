@@ -98,7 +98,7 @@ const getUserToken = async(req,res)=>{
         const {username}=req.body
         const pool=await getConnection();
         const result= await pool.request()
-        .input("nombres",sql.VarChar,username)
+        .input("nombres",sql.VarChar,username)//AQUI SE AUMENTA DATOS DEL TOKEN
         .query(`select nombre,identificador from asfi_usuario where nombre=@nombres and indicador='A'`)
         if(!result.recordset[0]){
             res.status(401).json({message:"No se encuentra en la base de datos registrese por favor"})
@@ -116,6 +116,7 @@ const getUserToken = async(req,res)=>{
         
             nombre:result.recordset[0].nombre,
             identificador:result.recordset[0].identificador
+
         })
     }
 }catch(err){
@@ -179,6 +180,7 @@ const modificarUser =async (req,res)=>{
     .input("I_identificador",sql.Int,result.recordset[0]["identificador"])
     .input("I_nombre",sql.VarChar,newUsername)
     .input("I_usuario",sql.Int,1)
+    
     .output("O_msg_error",sql.VarChar)
     .execute("segabm_usuarios")
     res.status(200).json({

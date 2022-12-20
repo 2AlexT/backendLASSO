@@ -6,7 +6,8 @@ import {gestionService} from 'src/app/services/gestionService'
 import { getGestion } from 'src/app/models/gestion';
 import { empresaService } from 'src/app/services/empresaService';
 import { getEmpresa } from 'src/app/models/empresa';
-
+import { documentService } from 'src/app/services/documentoService';
+import { getDocumento } from 'src/app/models/documento';
 
 @Component({
     selector: 'app-sidebar',
@@ -16,9 +17,8 @@ import { getEmpresa } from 'src/app/models/empresa';
 export class SidebarComponent implements OnInit {
     usuarioAutenticado: UsuarioLogueado;
   
-    constructor(private authService: AuthService,private gestionService:gestionService,private empresaService:empresaService) {
+    constructor(private authService: AuthService,private gestionService:gestionService,private empresaService:empresaService,private documentService:documentService) {
         this.usuarioAutenticado = this.authService.obtenerUsuarioAutenticadoLdap();
-      
     }
     LoadEmpresaData:getEmpresa[]=[]
     LoadGestionData : getGestion[]=[]
@@ -26,27 +26,29 @@ export class SidebarComponent implements OnInit {
     consigueDataGestion=false
     urlPrueba:string | undefined
     pruebaArray:[]=[]
-    antesUrl:string ="/asfi/BancoFassil/";
-
+    antesUrl:string ="/asfi/Empresa/Gestion/";
+//asdasd
+   
     async ngOnInit() {
       this.config =  this.mergeConfig(this.options);
       this.consigueDataGestion=true
       this.empresaService.getEmpresa().subscribe(posts=>{
         this.consigueDataGestion=false
         this.LoadEmpresaData=posts
-        console.log(this.LoadEmpresaData)
         this.activarEmpresa() 
       })   
       this.getGestion();
+      
     }
-    
-    
+ 
     getGestion(){
      //CAMBIAR AQUI  
       this.gestionService.getGestion().subscribe(res=>{
         this.LoadGestionData=res
+        this.ordenarValores(this.LoadGestionData)
         console.log("Se llama Valores :: " + this.LoadGestionData )
        })
+       
       console.log("Se llama a la funcion :: " )
 
     }
@@ -64,7 +66,11 @@ export class SidebarComponent implements OnInit {
     }
     
 
-  
+    ordenarValores(vectorDocumento){
+      console.log("DENTRO DE ORDENAR VALOREs")
+      vectorDocumento.sort((a, b) => a.gestion < b.gestion ? -1 : a.gestion > b.gestion ? 1 : 0)
+    }
+
     menus: Menu[] = [
       {
         icon: 'settings',

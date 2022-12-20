@@ -1,0 +1,62 @@
+    <div>
+      <div>
+        <h1 style="float: left;">DOCUMENTOS | Lista</h1>
+      <hr hidden />
+      </div> <br><br><br>
+  
+      <!-- BUSCADOR -->
+      <div class="fr">
+        <nav>
+          <!-- <a href="http://" ngClass="amr"> <mat-icon fontIcon="add" ngClass="icons" ></mat-icon> </a> -->
+    
+        </nav>
+      </div>
+      <br />
+      <br />
+      <hr />
+  
+      <div class="scrolls">
+        <!-- TABLA -->
+        <table>
+          <thead [classList]="">
+            <tr>
+              <th>Descripción</th>
+              <th ngClass="center">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor=" let articulos of LoadArticuloData | orderBy: key:reverse | paginate: { itemsPerPage: 7, currentPage: page }">
+              <td></td>
+              <td ngClass="center">
+                <a routerLink="/asfi/empresa/"> Abrir </a>
+              </td>
+            </tr> -->
+  
+          
+            <tr>
+              <div class="box" *ngFor="let documento of LoadDocumentoNombre">
+                Sección {{documento.nombre_archivo}}
+              </div>
+              <td>2</td>
+              <td>Segundo Doc</td>
+              <td>Nueva descripcion de docuemtno</td>
+              <td>Descargar</td>
+            </tr>
+           
+          </tbody>
+          <tfoot>
+            <tr>
+              <th ngClass="center">Id</th>
+              <th ngClass="center">Nombre</th>
+              <th>Descripción</th>
+              <th ngClass="center">Opciones</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+     
+    </div>
+
+  <br />
+  <br />
+  

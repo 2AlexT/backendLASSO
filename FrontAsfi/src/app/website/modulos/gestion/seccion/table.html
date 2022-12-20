@@ -1,0 +1,35 @@
+
+<table >
+  <thead>
+      <tr>
+        <td ngClass="center">Articulo</td>
+        <td ngClass="center">Fecha Proceso</td>
+        <td ngClass="center">Opciones</td>
+      </tr>
+  </thead>
+  <tbody>
+    <!-- <ul *ngIf articulos.id_seccion = seccion.identificador> -->
+
+      <tr *ngFor="let articulos of LoadArticuloData | paginate: { itemsPerPage: 5, currentPage: page}">
+        <td>{{ articulos.articulo }}</td>
+        <td>{{ articulos.fecha_proceso }}</td>
+        <td ngClass="center">
+          <a routerLink="/asfi/empresa/"> Abrir </a>
+        </td>
+      </tr>
+    <!-- </ul> -->
+  </tbody>
+  <tfoot>
+    <tr>
+      <td ngClass="center">Articulo</td>
+      <td ngClass="center">Fecha Proceso</td>
+      <td ngClass="center">Opciones</td>
+    </tr>
+  </tfoot>
+</table>
+<pagination-controls
+(pageChange)= "page = $event"
+previousLabel="Anterior"
+nextLabel="Siguiente">
+</pagination-controls>
+

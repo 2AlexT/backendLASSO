@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardLayoutComponent } from './dashboard-layout.component';
-// import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
@@ -14,18 +12,28 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from '../../../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule} from '@angular/material/input';
+import { MatDialogModule} from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule,} from '@angular/forms';
+
+
 //componentes
+import { DashboardLayoutComponent } from './dashboard-layout.component';
+import { ConfirmDialogComponent } from './modal.component';
+// import { CuerpoMailComponent } from './cuerpomail.component';
 import { InicioComponent } from 'src/app/website/inicio/inicio.component';
-import { FileUploadModule } from 'ng2-file-upload';
+// import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     DashboardLayoutComponent,
     // DashboardComponent,
-    InicioComponent
+    InicioComponent,
+    ConfirmDialogComponent,
+    // CuerpoMailComponent
   ],
   imports: [
-    FileUploadModule,
     CommonModule,
     RouterModule,
     MatSidenavModule,
@@ -39,7 +47,17 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatMenuModule,
     FlexLayoutModule,
     SharedModule,
+    MatInputModule,
+    MatDialogModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+
   ],
+  exports:[
+    // ConfirmDialogComponent,
+  ],
+
   providers: [
     // DashboardService
   ]

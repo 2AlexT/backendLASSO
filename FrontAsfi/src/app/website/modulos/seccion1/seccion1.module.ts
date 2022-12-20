@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 import {  DashboardLayoutModule,} from 'src/app/website/@pages/dashboard-layout/dashboard-layout.module';
@@ -53,7 +54,8 @@ import { ArticulosComponent } from './2020/articulos/articulos.component';
     DialogModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MatTableModule // Table
+    MatTableModule, // Table
+    NgxPaginationModule,
 
   ],
 
