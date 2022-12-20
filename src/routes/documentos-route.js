@@ -10,7 +10,7 @@ const router=express.Router({mergeParams:true});
     
     router.post('/articulo/:id_articulo/articulo/crearDocumento',ldapController.protect,documentoController.createNewDocumento)
     router.post('/articulo/:id_articulo/articulo/:id_documento/modificarDocumento',ldapController.protect,documentoController.modificarDocumento)
-    router.post('/articulo/:id_articulo/articulo/:id_documento/darDeAltaDocumento',ldapController.protect)
+    router.delete('/articulo/:id_articulo/articulo/:id_documento/darDeAltaDocumento',ldapController.protect)
    
     router.post('/articulo/:id_articulo/upload',documentoController.uploadFile)
     router.get('/:id_articulo/listaDocumentosId',documentoController.listaDocumentosId)

@@ -9,7 +9,7 @@ const router=express.Router({mergeParams:true});
     router.get('/empresa/:id_empresa/conseguir_gestion',gestionController.getGestiones) 
     router.post('/empresa/:id_empresa/gestion/:id_gestion/modificarGestion',ldapController.protect,gestionController.modificarGestion)
     router.post('/empresa/:id_empresa/gestion/crearGestion',ldapController.protect,gestionController.createNewGestion)
-    router.post('/empresa/:id_empresa/gestion/:id_gestion/darAltaGestion',ldapController.protect,gestionController.gestionDarAlta)
+    router.delete('/empresa/:id_empresa/gestion/:id_gestion/darAltaGestion',ldapController.protect,gestionController.gestionDarAlta)
     
     //router.delete('/users')
     //router.patch('/users')
