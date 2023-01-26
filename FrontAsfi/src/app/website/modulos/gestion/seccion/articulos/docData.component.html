@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Modificar Cantidad de Articulos</h1>
+<hr />
+<!-- <mat-card *ngIf="mostrar"> -->
+  <!-- <form > -->
+    <form [formGroup]="datos" class="form-group">
+      <div class="flex-container">
+        <div class="box2">
+            <mat-form-field class="example-full-width" style="width: 100%">
+              <mat-label>Cantidad Data : </mat-label>
+              <input class="input" matInput type="number"   min="0" oninput="this.value = Math.abs(this.value)" value="0" placeholder="Ej. 100" formControlName="cantidad" />
+            </mat-form-field>
+        </div>
+      
+      </div>   
+      <button class="btn btn-primary" mat-raised-button color="primary" type="submit" (click)="cambiarCantidadMaximaDocumentos()" >
+        Modificar
+      </button> | <button class="btn cerrar" mat-button mat-raised-button (click)="onClickNO()">
+        <span class="ts"> Cerrar </span>
+      </button>
+    </form>
+
+<div mat-dialog-actions>
+  
+  
+</div>

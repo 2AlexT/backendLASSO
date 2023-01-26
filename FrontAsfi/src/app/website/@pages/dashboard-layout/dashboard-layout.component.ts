@@ -66,7 +66,10 @@ export class DashboardLayoutComponent implements OnInit {
     localStorage.removeItem('auth');
     this.router.navigate([''])
   }
-
+  listaEmpresa() {
+    this.router.navigate(['asfi/empresa/listaEmpresa'])
+  }
+  
   email() {
     console.log('recibiendo Email ')
   }

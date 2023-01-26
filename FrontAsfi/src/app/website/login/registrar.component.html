@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Registrar usuario</h1>
+<hr />
+<!-- <mat-card *ngIf="mostrar"> -->
+  <!-- <form > -->
+    <form [formGroup]="datos" >
+      <div class="flex-container">
+        <div class="box2">
+            <mat-form-field class="example-full-width" style="width: 100%">
+              <mat-label>Usuario : </mat-label>
+              <input matInput value="" placeholder="Ej. pstdaPablito" formControlName="nombre" />
+            </mat-form-field>
+        </div>
+      </div>
+      
+      <button mat-raised-button color="primary" type="submit" class="boton" (click)="crearUsuario()" >
+        Registrar
+      </button> |  <button class="cerrar" mat-button mat-raised-button (click)="onClickNO()">
+        <span class="ts"> Cerrar </span>
+      </button>
+    </form>
+
+<div mat-dialog-actions>
+ 
+  
+</div>

@@ -1,0 +1,51 @@
+<mat-card>
+  <div>
+    <h1 style="float: left">DOCUMENTO | Nuevo</h1>
+    <!-- <a  ngClass="a_add animat" #tooltip="matTooltip" matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a> -->
+    <div class="file-select1 a_add animat ">
+      <input type="file" ngClass="input-file1" name="fileUpload" id="fileUpload" multiple ng2FileSelect
+        [uploader]="uploader" #tooltip="matTooltip" matTooltip="Agregar" matTooltipPosition="left"
+        aria-tooltip="Button">
+    </div>
+    <hr hidden />
+  </div> <br /><br /><br />
+  <hr />
+  <!-- SELECCIONAR -->
+  <!-- <div class="">
+    <label for="input-custom-file">Adjuntar documento</label>
+    <div class="file-select">
+      <input type="file" name="" class="input-file" name="fileUpload" id="fileUpload" multiple ng2FileSelect
+        [uploader]="uploader" />
+    </div>
+  </div> -->
+
+  <div class="flex-container">
+    <!-- LISTA DE DOCUMENTOS -->
+    <div class="box" *ngFor="let item of uploader.queue">
+      <div>{{ item.file.name }}
+        <a class="a_upload" (click)="item.upload()">Subir
+          <!-- <mat-icon aria-hidden="false" fontIcon="upload_file"></mat-icon> -->
+        </a>
+        <a class="a_upload" (click)="item.remove()">Quitar
+        </a>
+      </div>
+      <!-- <div [ngStyle]="{ width: item.progress + '%' }"></div> -->
+    </div>
+    <!-- DESCRIPCION -->
+    <!-- <div class="box">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput placeholder="Detalle descripcion"></textarea>
+          </mat-form-field>
+        </div> -->
+  </div>
+  <br>
+  <!-- UPLOAD ALL -->
+  <div class="box1" *ngIf="uploader.queue.length > 0">
+    <button type="button" class="upload_all" (click)="uploader.uploadAll()">
+      CARGAR TODO
+    </button>
+  </div>
+</mat-card>
+<br />
+<br />

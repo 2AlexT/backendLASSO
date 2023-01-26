@@ -34,7 +34,15 @@
     margin-bottom: 10px;
 }
 
-
+.btn-plantilla {
+    background-color: #cdcdcd;
+    color: #042b5a;
+    border-radius: 6px;
+    width: 150px;
+    height: 28px;
+    border-top-style: inset;
+    text-align: center;
+  }
 /*
 .bg-page {
     height: 100%;

@@ -15,3 +15,7 @@ export interface getGestion{
 export interface Menu{
   active: boolean,
 }
+export interface createGestion{
+  id?:string,
+  gestion:number,
+}

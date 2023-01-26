@@ -6,13 +6,17 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/services/tokenService';
+
+
 import { UsuarioLogueado } from 'src/app/models/Usuario';
+import { registrarComponent } from './registrar.component';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
 
   
 
@@ -47,10 +51,9 @@ export class LoginComponent implements OnInit {
     onLogin() {
         if (!this.loginForm.valid) {
             return ;
-        }
+        }else{      
         this.authService.AutenticarLdap(this.loginForm.value).subscribe(
             (result:any) => {
-                console.log("ANTES DEL ERROR PASO NORMAL")
                 this.responseDataLogin=result
                 localStorage.setItem('auth', JSON.stringify(this.responseDataLogin));
                 localStorage.setItem('accessToken',this.responseDataLogin.accesToken)
@@ -67,9 +70,12 @@ export class LoginComponent implements OnInit {
                 }
             }
         );
-        
+    }
 
     }
 
-
+    openDialog(): void {
+        const dialogRef = this.dialog.open(registrarComponent, { data: '' });
+        dialogRef.afterClosed().subscribe(res => { console.log(res); }); //Opcional show
+      }
 }

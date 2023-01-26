@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     consigueDataGestion=false
     urlPrueba:string | undefined
     pruebaArray:[]=[]
-    antesUrl:string ="/asfi/Empresa/Gestion/";
+    antesUrl:string ="/asfi/empresa/gestion/";
 //asdasd
    
     async ngOnInit() {

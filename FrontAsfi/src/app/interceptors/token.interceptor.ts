@@ -18,7 +18,7 @@ export class authInterceptor implements HttpInterceptor {
   }
 
   
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let accessToken=this.addTokenHeader(request,this.authService.getToken())
     if (request.headers.get("skip")){
       return next.handle(request)
@@ -36,7 +36,7 @@ export class authInterceptor implements HttpInterceptor {
     ) };
   }
 
-  handlerRefreshToken(request: HttpRequest<unknown>, next: HttpHandler){
+  handlerRefreshToken(request: HttpRequest<any>, next: HttpHandler){
     return this.authService.generetaRefreshToken().pipe(
       switchMap((data:any)=>{
         this.authService.saveTokens(data);
@@ -49,7 +49,7 @@ export class authInterceptor implements HttpInterceptor {
     )
   }
 
-  addTokenHeader(request: HttpRequest<unknown>,token:any){
+  addTokenHeader(request: HttpRequest<any>,token:any){
     return request.clone({
       headers:request.headers.set('Authorization','Bearer '+token)
     })

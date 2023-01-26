@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload'
 
@@ -11,7 +12,7 @@ export class InicioComponent implements OnInit {
   breakpoint: number = 2;
   uploader:FileUploader=new FileUploader({url:uri,headers:[{name:'Authorization', value:'Bearer ' + localStorage.getItem('accessToken')}]})
   attachmentList:any=[]
-  constructor() {
+  constructor( private _httpclient: HttpClient,) {
       this.uploader.onCompleteItem= (item:any,response:any,status:any,headers:any)=>{
       this.attachmentList.push(JSON.parse(response));
     }
@@ -30,6 +31,12 @@ export class InicioComponent implements OnInit {
 
   onResize(event:any) {
     this.breakpoint = (event.target.innerWidth <= 480) ? 1 : 2;
+  }
+  cargarPlantilla(){
+    this._httpclient.get('http://localhost:8080/api/v1/generatePlantilla').subscribe(res => {
+      console.log(res)
+      window.location.reload()
+    })
   }
 }
 

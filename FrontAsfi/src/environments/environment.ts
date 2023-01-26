@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  urlApiInfosecV1: 'http://localhost:5000/api/v1/'
+  urlApiInfosecV1: 'http://localhost:8080/api/v1/',
+  urlApiEmpresa:'http://localhost:8080/api/v1/listaEmpresa',
+  urlApiGestion:'',
+  urlApiSeccion:'',
+  urlApiArticulo:'',
+  urlApiDocumento:'',
+  urlApiDocumentoDownload:'http://localhost:8080/api/v1/downloads'
 };
 
 /*

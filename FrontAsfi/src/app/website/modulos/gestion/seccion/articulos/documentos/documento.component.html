@@ -1,62 +1,75 @@
+<mat-card>
+  <div>
     <div>
-      <div>
-        <h1 style="float: left;">DOCUMENTOS | Lista</h1>
-      <hr hidden />
-      </div> <br><br><br>
-  
-      <!-- BUSCADOR -->
-      <div class="fr">
-        <nav>
-          <!-- <a href="http://" ngClass="amr"> <mat-icon fontIcon="add" ngClass="icons" ></mat-icon> </a> -->
-    
-        </nav>
-      </div>
-      <br />
-      <br />
-      <hr />
-  
-      <div class="scrolls">
-        <!-- TABLA -->
-        <table>
-          <thead [classList]="">
-            <tr>
-              <th>Descripción</th>
-              <th ngClass="center">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- <tr *ngFor=" let articulos of LoadArticuloData | orderBy: key:reverse | paginate: { itemsPerPage: 7, currentPage: page }">
-              <td></td>
-              <td ngClass="center">
-                <a routerLink="/asfi/empresa/"> Abrir </a>
-              </td>
-            </tr> -->
-  
-          
-            <tr>
-              <div class="box" *ngFor="let documento of LoadDocumentoNombre">
-                Sección {{documento.nombre_archivo}}
-              </div>
-              <td>2</td>
-              <td>Segundo Doc</td>
-              <td>Nueva descripcion de docuemtno</td>
-              <td>Descargar</td>
-            </tr>
-           
-          </tbody>
-          <tfoot>
-            <tr>
-              <th ngClass="center">Id</th>
-              <th ngClass="center">Nombre</th>
-              <th>Descripción</th>
-              <th ngClass="center">Opciones</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-     
-    </div>
+      <h1 style="float: left;">DOCUMENTOS | Lista</h1>
+      <!-- <a [href]="['/asfi/Empresa/Gestion/' + (id_ruta_gestion) + '/Seccion/' + (id_ruta_seccion) + '/Articulo/' + (id_ruta_articulo)+ '/Documento/create']" ngClass="a_add animat" #tooltip="matTooltip" matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a> -->
+      <a [routerLink]="'/asfi/empresa/gestion/' + id_ruta_gestion + '/seccion/' + id_ruta_seccion + '/articulo/' + id_ruta_articulo +'/createDocument'" ngClass="a_add animat" #tooltip="" matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
 
-  <br />
-  <br />
-  
+    <hr hidden />
+    </div> <br><br><br>
+
+    <!-- BUSCADOR -->
+    <div class="fr">
+      <nav>
+        <!-- <a href="http://" ngClass="amr"> <mat-icon fontIcon="add" ngClass="icons" ></mat-icon> </a> -->
+        <Label>Buscar:<mat-icon fontIcon="search" class="mb1"></mat-icon>
+        </Label>
+        <input type="text" name="documento" [(ngModel)]="documento" (ngModelChange)="Search()"
+          placeholder="Ej. Documento ..." class="inputs" />
+      </nav>
+    </div>
+    <br />
+    <br />
+    <hr />
+
+    <div class="scrolls">
+      <!-- TABLA -->
+      <table>
+        <thead [classList]="">
+          <tr>
+            <th ngClass="center" (click)="Sort('id')">
+              Nombre documento&nbsp;<mat-icon fontIcon="filter_list" class="mb1"></mat-icon>
+            </th>
+            <th>Descripción</th>
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor=" let articulos of LoadArticuloData | orderBy: key:reverse | paginate: { itemsPerPage: 7, currentPage: page }">
+            <td></td>
+            <td ngClass="center">
+              <a routerLink="/asfi/empresa/"> Abrir </a>
+            </td>
+          </tr> -->
+
+          <tr *ngFor="let documento of LoadDocumentoNombre,let i =index">
+            <td *ngIf="documento.identificador!==undefined">{{documento.nombre_archivo}}</td>
+            <td *ngIf="documento.identificador!==undefined">{{documento.descripcion}}</td>
+            <td class="center" *ngIf="documento.identificador!==undefined">
+              <a (click)="descargarDocumento(documento.ruta_archivo,documento.nombre_archivo)" ngClass="amr" #tooltip="" matTooltip="Descargar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="download" ngClass="icon_op" ></mat-icon> </a>
+              <a [href]="'/asfi/empresa/gestion/' + id_ruta_gestion + '/seccion/' + id_ruta_seccion + '/articulo/' + id_ruta_articulo +'/documento/'+documento.identificador+'/editDocumento'" ngClass="amr" #tooltip="" matTooltip="Editar" matTooltipPosition="right"  aria-tooltip="Button"> <mat-icon fontIcon="drive_file_rename_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a (click)="eliminar(id_ruta_articulo,documento.identificador)" ngClass="amr"  matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="delete_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a (click)="iframePopUp(documento.nombre_archivo)" ngClass="amr"  matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="launch" ngClass="icon_op" ></mat-icon> </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th ngClass="center">Nombre documento</th>
+            <th>Descripción</th>
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <ul>
+      <div>
+         {{ listnombre  }}
+    </div>
+  </ul>
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+  </div>
+</mat-card>
+<br />
+<br />

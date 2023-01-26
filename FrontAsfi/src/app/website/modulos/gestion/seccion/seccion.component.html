@@ -9,61 +9,54 @@
 </mat-card>
 <br> -->
 
-<mat-card>
-  <div class="justi">
-    <h1 class="texto1">SECCIONES | Lista</h1>
-    <hr><br>
+<!-- CREATE -->
+<mat-card *ngIf="CreateShow">
+  <div class="">
+    <h1 style="float: left">SECCIONES | Nuevo</h1>
+      <a (click)="IndexShow=true;CreateShow=!CreateShow" ngClass="a_add animat" #tooltip="" matTooltip="Volver" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="arrow_back" ngClass="icon_add"></mat-icon> </a>
+    <hr hidden /><br><br><br>
+  </div>
+  <div class="flex-container-create">
+    <div class="box-create">
+      <mat-form-field class="example-form-field">
+        <mat-label>Nro. Sección</mat-label>
+        <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" [(ngModel)]="ListaSeccion.seccion"
+          placeholder="Ingrese solo el número de la sección" style="font-size: 26px;">
+      </mat-form-field>
+    </div>
+    <div class="box-create1">
+      <button (click)="create();CreateShow=!CreateShow; IndexShow=false;" class="btn-create">Guardar</button>
+      <!-- <button (click)="IndexShow=true;CreateShow=!CreateShow" class="btn-create">volver</button> -->
+    </div>
+  </div>
+</mat-card>
+<!-- FIN CREATE -->
 
-    <section class="flex-container" >
-      <div class="box" *ngFor="let seccion of LoadSeccionData"  (click)="SeccionE(seccion.identificador)" >
-        
-        <a *ngIf="seccion.identificador != undefined" [href]="UrlGestion + seccion.identificador" class="a_seccion">
-        <!-- No olvidar ordenar con sort o algo asi -->
-        Sección {{ seccion.seccion }}
-      </a>
+<!-- INDEX -->
+<mat-card *ngIf="IndexShow">
+  <div>
+    <!-- <h1 class="texto1">SECCIONES | Lista</h1> -->
+
+    <h1 style="float: left;">SECCIONES | Lista</h1>
+      <a (click)="CreateShow=!CreateShow; IndexShow=false" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+    <hr hidden /><br><br><br>
+    <hr>
+    <section class="flex-container" *ngFor="let seccion of LoadSeccionData">
+      <div class="box" *ngIf="seccion.identificador!==undefined" >
+        <div [routerLink]="['/asfi/empresa/gestion/' + (id_ruta_gestion) + '/seccion/' + seccion.identificador]" class="a_seccion">Sección {{ seccion.seccion }}     
+        </div>
+        <a [routerLink]="['/asfi/empresa/gestion/' + (id_ruta_gestion) + '/seccion/'+ seccion.identificador +'/edit']" class="btn_modify">  
+          <mat-icon fontIcon="border_color" ngClass="icon_add"></mat-icon>
+           </a>
+        <a class="btn_eliminate" (click)="eliminar(seccion.identificador)"><mat-icon fontIcon="delete_outline" ngClass="icon_add"></mat-icon></a>
       </div>
     </section>
   </div>
-</mat-card>
-<br>
+</mat-card><br><br>
 
-
-  <!-- <button (click)="mostrar= !mostrar"></button>
+<!-- <button (click)="mostrar= !mostrar"></button>
   <p *ngIf="mostrar">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores enim sint quaerat dolore illo doloribus officia natus dolor tempore? Repellendus soluta neque dicta assumenda libero ex debitis facere. Culpa, asperiores?</p> -->
 
-  <!-- <app-articulos></app-articulos> -->
+<!-- <app-articulos></app-articulos> -->
 
-  <!-- CONTENIDO DE CARRUSEL CON CONTENIDO DE TABLA -->
-
-  <!-- <mat-card>
-    <mat-tab-group mat-align-tabs="start">
-          <mat-tab label="SECCION" *ngFor="let seccion of LoadSeccionData;">
-          <br>
-            <div class="example-box mb" cdkDragLockAxis="y" cdkDrag *ngFor="let seccion of LoadSeccionData">
-              <h2 class="texto">Sección {{ seccion.seccion }}</h2><br>
-            </div>
-          </mat-tab>
-    </mat-tab-group>
-  </mat-card> -->
-
-  <!-- <section class="flex-container"  >
-    <div class="box">
-      Sección 1
-    </div>
-    <div class="box">
-      Sección2
-    </div>
-    <div class="box">
-      Sección2
-    </div>
-    <div class="box">
-      Sección3
-    </div>
-    <div class="box">
-      Sección4
-    </div>
-    <div class="box">
-      Sección5
-    </div>
-  </section> -->
-
+<!-- CONTENIDO DE CARRUSEL CON CONTENIDO DE TABLA -->

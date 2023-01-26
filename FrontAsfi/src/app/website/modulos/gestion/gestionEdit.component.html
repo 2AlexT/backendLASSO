@@ -1,0 +1,27 @@
+
+<mat-card>
+    <form [formGroup]="editarForm" (ngSubmit)="postForm(editarForm.value)">
+      <!-- <form [formGroup]="editarForm" > -->
+      <div class="justi">
+        <h1 class="texto1">GESTIONES | Modificando</h1>
+        <hr><br>
+      </div>
+      <div class="flex-container-create">
+        <div class="box-create">
+          <mat-form-field class="example-form-field">
+            <mat-label>Nro. Sección</mat-label>
+            <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" placeholder="Ingrese solo el número de la gestión" formControlName="gestion" style="font-size: 26px;">
+          </mat-form-field>
+        </div>
+        <div class="box-create1">
+          <button  type="submit" class="btn-create">Guardar</button>
+        </div>
+      </div>
+  
+    </form>
+  
+  
+  
+  
+  </mat-card><br>
+  

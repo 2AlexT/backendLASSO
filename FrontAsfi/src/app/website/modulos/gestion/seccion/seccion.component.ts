@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SeccionService } from 'src/app/services/seccionService';
 
 //MODELOS
-import { getSeccion, Menu } from 'src/app/models/seccion';
+import { getSeccion,createSeccion, Menu } from 'src/app/models/seccion';
 
 //COMPONENTES
 import { ModalComponent } from './modal.component';
@@ -22,7 +22,14 @@ export class SeccionComponent implements OnInit {
   seccion:any
   mostrar:boolean= false!
   // usuarioAutenticado: UsuarioLogueado;
-
+  IndexShow: boolean = true!
+  CreateShow: boolean = false!
+  EditShow: boolean = false!
+  EditClose: boolean = true!
+  ListaSeccion: createSeccion = {
+    seccion: 1,
+  };
+  
 
   constructor(
     private authService: AuthService,
@@ -35,30 +42,36 @@ export class SeccionComponent implements OnInit {
     {
       //this.usuarioAutenticado = this.authService.obtenerUsuarioAutenticadoLdap();
     }
-    id: string | null="";
+    id_ruta_gestion: string | null=null;
+    id_ruta_seccion: string | null=null;
     LoadSeccionData : getSeccion[]=[];
-    UrlGestion:string ="/asfi/Empresa/Gestion/${id}/Seccion/Articulo/";
-
+  
   async ngOnInit() {
-    
-    this.route.paramMap.subscribe(params => {
-      this.id = params.get("id")
-      if (this.id!=undefined)
+
+      this.id_ruta_gestion = this.route.snapshot.paramMap.get("id_gestion")
+      if (this.id_ruta_gestion!=undefined)
       {
-        this.seccionService.obtenerSeccionPorGestion(this.id)
+        this.seccionService.obtenerSeccionPorGestion(this.id_ruta_gestion)
         .subscribe(respuesta => {
           this.LoadSeccionData = respuesta
           this.ordenarValores(this.LoadSeccionData)
+          let ultimaSeccion=this.LoadSeccionData.slice(-1)
+          console.log(ultimaSeccion)
+          if(ultimaSeccion==undefined){
+          }else{
+            this.ListaSeccion={seccion:ultimaSeccion[0].seccion + 1}
+
+          }
           }
           ); 
-     
+        
       }
       else
       {
         this.SeccionE(undefined)
         console.log("PORQUE")
       }
-    })
+   
   }
   ordenarValores(vectorDocumento){
     console.log("DENTRO DE ORDENAR VALOREs")
@@ -73,6 +86,46 @@ export class SeccionComponent implements OnInit {
   // Fin Modal
   SeccionE(identificador){
   console.log("Es el id: "+identificador)
+  }
+  //CREATE
+   // CREATE CON PARAMS
+   create() {
+    this.route.paramMap.subscribe(params => {
+      if (params.has("id_gestion")) {
+        console.log(params.get("id_gestion"))
+        this.id_ruta_gestion = params.get("id_gestion")
+        
+        // this.seccionService.savesSeccion(this.ListaSeccion, this.id_ruta_gestion).subscribe();
+        this.seccionService.savesSeccion(this.ListaSeccion, this.id_ruta_gestion).subscribe(data =>
+          {
+            let respuesta:createSeccion = data;
+            window.location.reload()
+            
+            // if(respuesta.status == "ok"){
+            //   this.alertas.showSuccess('La seccion fue creada correctamente !!!');
+            // }
+            // else{
+            //   this.alertas.showError(respuesta.result.error_msg, 'error');
+            // }
+            
+          }
+
+          );
+         
+      }
+    })
+  }
+  //Dar de alta
+  seccionId:string|any
+  gestionId:string|any
+  eliminar(identificador) {
+    let gestionIds = this.route.snapshot.paramMap.get('id_gestion');
+    this.seccionService.darAlta(gestionIds, identificador).subscribe(
+      res => {
+        console.log('seccion eliminado:'+ gestionIds + identificador);
+        window.location.reload()
+      },
+    )
   }
 
 }

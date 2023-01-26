@@ -15,3 +15,7 @@ export interface getSeccion{
 export interface Menu{
   active: boolean,
 }
+export interface createSeccion{
+  id?:string,
+  seccion:number,
+}

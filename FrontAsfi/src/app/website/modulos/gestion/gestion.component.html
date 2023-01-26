@@ -1,0 +1,100 @@
+<mat-card>
+  <div>
+    <a (click)="CreateShow=!CreateShow; IndexShow=false" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+    <h1 class="centro">Gestion | Lista</h1>
+    <mat-card *ngIf="CreateShow">
+      <div class="">
+        <h1 style="float: left">Gestion | Crear gestion</h1>
+          <a (click)="IndexShow=true;CreateShow=!CreateShow" ngClass="a_add animat" #tooltip="" matTooltip="Volver" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="arrow_back" ngClass="icon_add"></mat-icon> </a>
+        <hr hidden /><br><br><br>
+      </div>
+      <div class="flex-container-create">
+        <div class="box-create">
+          <mat-form-field class="example-form-field">
+            <mat-label>Año de gestion</mat-label>
+            <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" [(ngModel)]="ListaGestion.gestion"
+              placeholder="Ingrese solo el número de la gestion" style="font-size: 26px;">
+          </mat-form-field>
+        </div>
+        <div class="box-create1">
+          <button (click)="create(id_ruta_empresa);CreateShow=!CreateShow; IndexShow=false;" class="btn-create">Guardar</button>
+          <!-- <button (click)="IndexShow=true;CreateShow=!CreateShow" class="btn-create">volver</button> -->
+        </div>
+      </div>
+    </mat-card>
+    <!-- BUSCADOR -->
+    <br>
+    <div class="fr">
+      <nav>
+        <Label>Buscar:<mat-icon fontIcon="search" class="mb1"></mat-icon>
+        </Label>
+        <!-- <input type="text" name="articulo" [(ngModel)]="articulo" (ngModelChange)="Search()"
+          placeholder="Ej. Auditoria ..." class="inputs" /> -->
+          <input 
+            type="number" 
+            name="gestion"  
+            placeholder="Ej. gestion ..." 
+            class="inputs"
+            [(ngModel)]="gestion"
+            (ngModelChange)="Search()"
+            class="inputs"  
+          />
+      </nav>
+    </div>
+    <br />
+    <br />
+    <hr />
+
+    <div class="scrolls">
+      <!-- TABLA -->
+      <table>
+        <thead [classList]="">
+          <tr>
+            <!-- <th ngClass="center" (click)="Sort('id')"> -->
+              <th>
+              Nro ID&nbsp;<mat-icon fontIcon="filter_list" class="mb1"></mat-icon>
+            </th>
+            <th>Gestión</th>
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor=" let articulos of LoadArticuloData | orderBy: key:reverse | paginate: { itemsPerPage: 7, currentPage: page }">
+            <td></td>
+            <td ngClass="center">
+              <a routerLink="/asfi/empresa/"> Abrir </a>
+            </td>
+          </tr> -->
+
+          <!-- <tr> -->
+          <tr *ngFor="let gestion of LoadGestionData
+         
+          | paginate: { itemsPerPage: 7, currentPage: page }
+          ;let i = index">
+            <!-- <td>{{documento.nombre_archivo}}</td> -->
+            <td>{{ gestion.identificador }}</td>
+
+            <td>{{gestion.gestion}}</td>
+            <td class="center">
+              <a [href]="'asfi/empresa/'+id_ruta_empresa+'/gestion/'+gestion.identificador+'/editGestion'" ngClass="amr" #tooltip="matTooltip" matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="drive_file_rename_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a [href]="'/asfi/empresa/'+id_ruta_empresa+'/gestion/listaGestion'" (click)="eliminar(id_ruta_empresa,gestion.identificador)" ngClass="amr" #tooltip="matTooltip" matTooltip="Eliminar" matTooltipPosition="right"  aria-tooltip="Button"> <mat-icon fontIcon="delete_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a [href]="'/asfi/empresa/gestion/'+gestion.identificador " ngClass="amr" > <mat-icon matTooltip="Seccion de la gestion" ngClass="icon_op" fontIcon="arrow_forward" ></mat-icon> </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th ngClass="center">Nro ID</th>
+            <th>Gestión</th>
+            <th ngClass="center">Opciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+
+  </div>
+</mat-card>
+<br />
+<br />

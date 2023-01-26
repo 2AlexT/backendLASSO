@@ -1,6 +1,7 @@
 /* Table Structure */
-.scrolls{
-  overflow-x:auto ;
+.scrolls {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 table {
   width: 100%;
@@ -13,7 +14,7 @@ table {
   padding-top: 10px;
 }
 td {
-	border: 1px solid black;
+  border: 1px solid black;
   /* border-collapse: collapse; */
   border-style: dotted;
 }
@@ -27,45 +28,297 @@ table > tbody > tr:hover {
   width: 100%;
 }
 
-td, th, tr {
+td,
+th,
+tr {
   width: 25%;
 }
-tfoot, thead{
+tfoot,
+thead {
   background-color: rgba(196, 196, 196, 0.846);
   border-radius: 10px;
 }
 /* Fin Table Structure */
 
-.center{
+.center {
   text-align: center;
   font-weight: bold;
+  padding: 1%;
 }
-.mb1{
+.mb1 {
   margin-bottom: -7px;
 }
-.inputs{
+.inputs {
   border-radius: 5px;
   border: 1px solid #042b5a;
   right: 50%;
   padding: 10px 10px;
 }
-.fr{
+.fr {
   float: right;
 }
-/* RESPONSIVE */
-@media(max-width:400px )
-{
-  .centro{
-    text-align: center;
-  }
+.icon_op {
+  background-color: #042b5a;
+  color: #fff;
+  border-radius: 6px;
+  width: 32px;
+  height: 28px;
+  margin-bottom: -8px;
+  text-align: center;
+  line-height: 27px;
+  /* border-top-style: inset; */
+}
+.icon_op:hover {
+  background-color: #042b5a;
+  color: #2daba3;
+}
+.icon_add {
+  background-color: #cdcdcd;
+  color: #042b5a;
+  border-radius: 6px;
+  width: 33px;
+  height: 28px;
+  border-top-style: inset;
+  text-align: center;
+}
+.icon_add:hover {
+  background-color: #042b5a;
+  color: #cdcdcd;
 }
 
-.first{
-  height: 10px;
+.amr {
+  margin-right: 10px;
+}
+.a_add {
+  margin-right: 4px;
+  float: right;
+}
+.animat {
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.93);
+    box-shadow: 0 0 0 0 rgba(173, 173, 173, 0.1);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px rgba(186, 186, 186, 0.03);
+  }
+  100% {
+    transform: scale(0.99);
+    box-shadow: 0 0 0 0 rgba(97, 97, 97, 0);
+  }
+}
+/* HTML CREATE */
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  /* width: 100%; */
+}
+
+.example-full-width {
+  /* width: 100%; */
+}
+
+/* .input-file {
+  background-color: transparent;
+  position: relative;
+  height: 50px;
   width: 100%;
-  background: #ddd;
+  border: solid 1px rgb(195, 167, 167);
+  margin-top: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  text-align: center;
+} */
+
+/* CREATE DOCUMENTO */
+.flex-container {
+  /* border: 1px solid tomato; */
+  /* flex-direction: row-reverse; */
+  /* flex-flow: row-reverse wrap-reverse; */
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  max-width: 100%;
+
 }
-.second{
-  height: 10px;
-  background: #009200;
+.box{
+  /* border: 7px solid rgb(153, 154, 206); */
+  padding: 3px 10px;
+  font-size: 14px;
+  width: 200px auto;
+  height: 50px auto;
+  line-height: 50px;
+  text-align: center;
+  justify-content: center;
+  margin: 2px 2px;
+  box-shadow: 1px 0px 5px rgba(71, 71, 71, 0.753);
+  overflow: hidden;
 }
+.box2{
+  /* border: 7px solid rgb(153, 154, 206); */
+  padding: 3px 10px;
+  font-size: 14px;
+  width: 90%;
+  height: 50px auto;
+  line-height: 50px;
+  text-align: center;
+  justify-content: center;
+  margin: 2px 2px 30px;
+  overflow: hidden;
+}
+@media (max-width: 375px) {
+  .box{
+    width: 100%;
+  }
+}
+@media (max-width: 412px) {
+  .box{
+    width: 100%;
+  }
+}
+@media (max-width: 500px) {
+  .box{
+    width: 100%;
+  }
+}
+.box1{
+  /* border: 7px solid rgb(153, 154, 206); */
+  padding: 3px 10px;
+  font-size: 10px;
+  width: 200px auto;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  justify-content: center;
+}
+.c1 {
+  /* order: 1; */
+  flex-grow: 8;
+  flex-basis: 60%;
+}
+.c2 {
+  /* order: 2; */
+  flex-grow: 1;
+  flex-basis: 10%;
+  /* justify-content: space-between; */
+}
+.btn {
+  margin: 2px;
+  padding: 5px 45px 5px 45px;
+}
+.a_upload{
+  background-color:#042b5a;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 2px 2px;
+  font-size: 13px;
+  line-height: 24px;
+  border-radius: 10px;
+  box-shadow: 1px 0px 5px rgba(71, 71, 71, 0.753);
+  cursor: pointer;
+}
+.a_upload:hover{
+  border: 1px solid #042b5a;
+  background-color:#fff;
+  color: #042b5a;
+}
+.upload_all{
+  background-color:#042b5a;
+  color: #fff;
+  padding: 15px 38px;
+  margin: 2px 2px;
+  font-size: 14px;
+  border-radius: 10px;
+  box-shadow: 1px 0px 5px rgba(71, 71, 71, 0.753);
+  cursor: pointer;
+  border:none;
+}
+.input{
+  width: 90%;
+}
+/* RESPONSIVE CREATE DOCUMENTO */
+
+/* INPUTS FILE */
+/* .file-select {
+  position: relative;
+  display: inline-block;
+}
+
+.file-select::before {
+  background-color: rgb(4 43 90);;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: "Seleccionar";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}  */
+
+.file-select1 {
+  position: relative;
+  display: inline-block;
+}
+
+.file-select1::before {
+  background-color: rgb(4 43 90);;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  content: "Agregar"; /* texto por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select1 input[type="file"] {
+  opacity: 0;
+  width: 86px;
+  height: 43px;
+  display: inline-block;
+}
+@media (max-width: 475px) {
+  .file-select1 input[type="file"]{
+    width: 40px;
+  }
+  .file-select1::before{
+    content: "+"; /* texto por defecto */
+    font-size: 35px;
+  }
+}
+@media (max-width: 360px) {
+  .file-select1 input[type="file"]{
+    width: 35px;
+  }
+  .file-select1::before{
+    right: -2px;
+  }
+}
+@media (max-width:688px) {
+
+}
+/* #src-file1::before {
+  content: "Seleccionar Archivo 1";
+}
+
+#src-file2::before {
+  content: "Seleccionar Archivo 2";
+} */

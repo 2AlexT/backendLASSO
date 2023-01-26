@@ -85,7 +85,7 @@ ul {
   }
   
   .accordion li:last-child .submenu {
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 0px 0px;
   }
   
   .accordion li:last-child .submenu li:last-child {

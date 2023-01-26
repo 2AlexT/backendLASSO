@@ -1,69 +1,79 @@
 <mat-toolbar>
     <!--color="primary"-->
     <mat-toolbar-row>
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <!-- <button mat-icon-button (click)="toggleSideBar()">
-            <mat-icon>menu</mat-icon>
-        </button> -->
-
-        <span> <img src="assets/img/logo-fassil_4.png" alt="Logo"> </span>
-
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" class="div_ml">
-            <ul fxLayout="row" >
-                <!-- <li>
-                    <button mat-icon-button>
-                        <mat-icon>settings</mat-icon>
-                    </button>
-                </li> -->
-                <li class="li_ml">
-                    <button mat-icon-button>
-                        <!-- <mat-icon (click)="mostrar=!mostrar" class="animat">mail</mat-icon> -->
-                        <mat-icon (click)="openDialog()" class="animat">mail</mat-icon>
-                    </button>
-                </li>
-                <li >
-                    <button mat-button [matMenuTriggerFor]="menu">
-                        <mat-icon>person_outline</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="cerrarSesion()">
-                            <mat-icon>exit_to_app</mat-icon>
-                            Cerrar sesión
-                        </button>
-                    </mat-menu>
-
-                </li>
-            </ul>
-        </div>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <!-- <button mat-icon-button (click)="toggleSideBar()">
+              <mat-icon>menu</mat-icon>
+          </button> -->
+  
+      <span> <img src="assets/img/logo-fassil_4.png" alt="Logo"> </span>
+  
+      <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" class="div_ml">
+        <ul fxLayout="row">
+          <li class="">
+            <button mat-icon-button style="margin-right:36px" [matMenuTriggerFor]="menus">
+              <mat-icon>settings_applications</mat-icon>
+            </button>
+            <mat-menu #menus="matMenu">
+              <button mat-menu-item (click)="listaEmpresa()">
+                <mat-icon>tune</mat-icon>
+                Empresas
+              </button>
+              <!-- <button mat-menu-item (click)="cerrarSesion()">
+                <mat-icon>tune</mat-icon>
+                Gestiones
+              </button> -->
+            </mat-menu>
+          </li>
+          <li class="li_ml">
+            <button mat-icon-button>
+              <mat-icon (click)="openDialog()" class="animat">mail</mat-icon>
+            </button>
+          </li>
+  
+          <li>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>person_outline</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="cerrarSesion()">
+                <mat-icon>exit_to_app</mat-icon>
+                Cerrar sesión
+              </button>
+            </mat-menu>
+  
+          </li>
+        </ul>
+      </div>
     </mat-toolbar-row>
-</mat-toolbar>
-<mat-drawer-container>
-    <mat-drawer #drawer
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
-        <app-sidebar></app-sidebar>
+  </mat-toolbar>
+  <mat-drawer-container>
+    <mat-drawer #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+      <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-
-        <router-outlet>
-          <!-- CONTENIDO -->
-          <!-- Plantilla dashboard -->
-        </router-outlet>
-
+  
+      <router-outlet>
+        <!-- CONTENIDO -->
+        <!-- Plantilla dashboard -->
+      </router-outlet>
+  
     </mat-drawer-content>
-</mat-drawer-container>
-<app-footer></app-footer>
-
-<!-- <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
-<mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
-        <app-sidebar></app-sidebar>
-    </mat-drawer>
-    <mat-drawer-content>
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
-<app-footer></app-footer> -->
+  </mat-drawer-container>
+  <app-footer></app-footer>
+  
+  <!-- <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
+  <mat-drawer-container>
+      <mat-drawer mode="side" [opened]="sideBarOpen">
+          <app-sidebar></app-sidebar>
+      </mat-drawer>
+      <mat-drawer-content>
+          <router-outlet></router-outlet>
+      </mat-drawer-content>
+  </mat-drawer-container>
+  <app-footer></app-footer> -->
+  

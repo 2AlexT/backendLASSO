@@ -14,3 +14,7 @@ export interface getEmpresa{
 
 
 }
+export interface createEmpresa{
+    id?:string,
+    nombre:string,
+}

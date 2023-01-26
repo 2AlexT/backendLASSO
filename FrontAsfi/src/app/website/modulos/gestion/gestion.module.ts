@@ -13,20 +13,33 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { MatIconModule} from '@angular/material/icon';
 import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule} from '@angular/material/input';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar'//
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 // COMPONENTES
-import { FileUploadModule } from 'ng2-file-upload';
 import { ArticulosComponent } from './seccion/articulos/articulos.component';
+import { ArticuloEditComponent } from './seccion/articulos/articulosEdit.component';
+
+import { empresaComponent } from '../empresa/empresa.component';
+import { EmpresaEditComponent } from '../empresa/empresaEdit.component';
+import { GestionComponent } from './gestion.component';
+import { GestionEditComponent } from './gestionEdit.component';
+//import { SeccionComponent } from './seccion/seccion.component';
+//import { DocumentoComponent } from './seccion/articulos/documentos/documento.component';
+import { SeccionEditComponent } from './seccion/seccionEdit.component';
+import { CreateDocComponent } from './seccion/articulos/documentos/create.component';
+import { DocumentoEditComponent } from './seccion/articulos/documentos/documentoEdit.component';
 // import { GestionComponent } from './gestion.component';
-import { SeccionComponent } from './seccion/seccion.component';
 
 import { TableComponent } from './seccion/table';
 import { ModalComponent } from './seccion/modal.component';
 import { OnCreateDirective } from './seccion/articulos/on-create.directive';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorIntercept } from 'src/app/interceptors/error.interceptor';
+import { authInterceptor } from 'src/app/interceptors/token.interceptor';
 
 
 // import { TableComponent } from './seccion/table';
@@ -35,10 +48,18 @@ import { OnCreateDirective } from './seccion/articulos/on-create.directive';
 
 @NgModule({
   declarations: [
+    empresaComponent,
+    EmpresaEditComponent,
+    GestionComponent,
+    GestionEditComponent,
     ArticulosComponent,
+    ArticuloEditComponent,
+  //  SeccionComponent,
+    SeccionEditComponent,
     // GestionComponent,
     
-
+    CreateDocComponent,
+    DocumentoEditComponent,
     TableComponent,
     ModalComponent,
     OnCreateDirective,
@@ -50,6 +71,7 @@ import { OnCreateDirective } from './seccion/articulos/on-create.directive';
   ],
 
   imports: [
+    MatProgressBarModule,
     FileUploadModule,
     CommonModule,
     GestionRoutingModule,
@@ -65,8 +87,10 @@ import { OnCreateDirective } from './seccion/articulos/on-create.directive';
     MatInputModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    Ng2OrderModule,
+    
   ],
-  providers: [] // ++
+  providers: [
+    
+] // ++
 })
 export class GestionModule { }

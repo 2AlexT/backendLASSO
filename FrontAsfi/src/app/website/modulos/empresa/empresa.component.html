@@ -1,0 +1,119 @@
+<mat-card>
+  <!-- Create -->
+  <a (click)="CreateShow=!CreateShow; IndexShow=false" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+  <h1 class="centro">EMPRESAS | Lista</h1>
+  <mat-card *ngIf="CreateShow">
+    <div class="">
+      <h1 style="float: left">Empresa | Nueva Empresa</h1>
+        <a (click)="IndexShow=true;CreateShow=!CreateShow" ngClass="a_add animat" #tooltip="" matTooltip="Volver" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="arrow_back" ngClass="icon_add"></mat-icon> </a>
+      <hr hidden /><br><br><br>
+    </div>
+    <div class="flex-container-create">
+      <div class="box-create">
+        <mat-form-field class="example-form-field">
+          <mat-label>Nombre Empresa</mat-label>
+          <input matInput type="string" [(ngModel)]="listaEmpresa.nombre"
+            placeholder="Ingrese solo el número de la sección" style="font-size: 26px;">
+        </mat-form-field>
+      </div>
+      <div class="box-create1">
+        <button (click)="create();CreateShow=!CreateShow; IndexShow=false;" class="btn-create">Guardar</button>
+        <!-- <button (click)="IndexShow=true;CreateShow=!CreateShow" class="btn-create">volver</button> -->
+      </div>
+    </div>
+  </mat-card>
+  <!-- ENd create -->
+  <br />
+  <div>
+      <!-- BUSCADOR -->
+      <div class="fr">
+        <nav>
+          <Label
+            >Buscar:<mat-icon fontIcon="search" class="mb1"></mat-icon>
+          </Label>
+          <input
+            type="text"
+            name="empresa"
+            [(ngModel)]="empresa"
+            (ngModelChange)="Search()"
+            placeholder="Ingresa el nombre de la empresa"
+            class="inputs"
+          />
+        </nav>
+      </div>
+      <br />
+      <br />
+      <hr />
+  
+      <div class="scrolls">
+        <!-- TABLA -->
+        <table>
+          <thead [classList]="">
+            <tr>
+              <th ngClass="center" (click)="Sort('id')">
+                empresa &nbsp;<mat-icon
+                  fontIcon="filter_list"
+                  class="mb1"
+                ></mat-icon>
+              </th>
+              <th ngClass="center" (click)="Sort('Fecha')">
+                Fecha &nbsp;<mat-icon
+                  fontIcon="filter_list"
+                  class="mb1"
+                ></mat-icon>
+              </th>
+              <!-- <th ngClass="center">Fecha Proceso</th> -->
+              <th ngClass="center">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <ul *ngIf articulos.id_seccion = seccion.identificador> -->
+          
+            <tr
+            *ngFor="
+            let empresa of LoadEmpresaData
+            | paginate: { itemsPerPage: 7, currentPage: page }
+            ;let i = index
+              "
+            >
+              <td *ngIf="empresa.identificador!==undefined">
+                    {{empresa.identificador}} 
+              </td>
+  
+              <td *ngIf="empresa.identificador!==undefined">
+                <div>
+                    {{empresa.nombre}}             
+              </div>
+              </td>
+          <!-- Verificar como cambiar mensaje de tooltip -->
+              <td class="center" *ngIf="empresa.identificador!==undefined">
+                <a [href]="urlEditEmpresa + empresa.identificador + '/editEmpresa'" #tooltip="matTooltip" ngClass="amr" matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="drive_file_rename_outline" ngClass="icon_op" ></mat-icon > </a>
+                <a href="/asfi/empresa/listaEmpresa" (click)="eliminar(empresa.identificador)"  #tooltip="matTooltip" ngClass="amr" matTooltip="Eliminar" matTooltipPosition="below"  aria-tooltip="Button"> <mat-icon fontIcon="delete_outline" ngClass="icon_op" ></mat-icon> </a>
+                <a [href]="'/asfi/empresa/' + empresa.identificador + '/gestion/listaGestion' " ngClass="amr" > <mat-icon matTooltip="Gestion de la empresa" ngClass="icon_op" fontIcon="arrow_forward" ></mat-icon> </a>
+              </td>
+              
+            </tr>
+            <!-- </ul> -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <th ngClass="center">Empresa</th>
+              <th ngClass="center">Fecha</th>
+              <th ngClass="center">Opciones</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <pagination-controls
+        (pageChange)="page = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+      >
+      </pagination-controls>
+    </div>
+  </mat-card>
+  <br>
+  <br>
+  
+  <!-- AQUI EMPIEZA LA PRACTICA DEL PROGREESS BARR -->
+  

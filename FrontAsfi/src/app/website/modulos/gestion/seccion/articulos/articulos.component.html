@@ -1,7 +1,27 @@
 <mat-card>
   <div>
-    <h1 class="centro">ARTÍCULOS | Lista</h1>
-    <hr hidden />
+    <a (click)="CreateShow=!CreateShow; IndexShow=false" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+    <h1 class="centro">Articulos | Lista</h1>
+    <mat-card *ngIf="CreateShow">
+      <div class="">
+        <h1 style="float: left">Articulo | Crear Articulo</h1>
+          <a (click)="IndexShow=true;CreateShow=!CreateShow" ngClass="a_add animat" #tooltip="" matTooltip="Volver" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="arrow_back" ngClass="icon_add"></mat-icon> </a>
+        <hr hidden /><br><br><br>
+      </div>
+      <div class="flex-container-create">
+        <div class="box-create">
+          <mat-form-field class="example-form-field">
+            <mat-label>Articulo</mat-label>
+            <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" [(ngModel)]="ListaArticulo.articulo"
+              placeholder="Ingrese solo el número de la gestion" style="font-size: 26px;">
+          </mat-form-field>
+        </div>
+        <div class="box-create1">
+          <button (click)="create();CreateShow=!CreateShow; IndexShow=false;" class="btn-create">Guardar</button>
+          <!-- <button (click)="IndexShow=true;CreateShow=!CreateShow" class="btn-create">volver</button> -->
+        </div>
+      </div>
+    </mat-card>
 
     <!-- BUSCADOR -->
     <div class="fr">
@@ -50,26 +70,73 @@
           <tr
             *ngFor="
               let articulos of LoadArticuloData
-                | orderBy: key:reverse
-                | paginate: { itemsPerPage: 7, currentPage: page }; let i = index
-              ;
+                
+                | paginate: { itemsPerPage: 7, currentPage: page }
+              ; let documentos of LoadDocumentoCantidad,let i = index
                 "
           >
             <td >
-                {{ articulos.articulo }}        
+                {{ articulos.articulo }}   
             </td>
 
             <td>{{ articulos.fecha_proceso }} 
-              <div>
-              <h1 *ngIf="articulos.identificador==LoadDocumentoCantidad[i].identificador && articulos.identificador!=undefined;">{{LoadDocumentoCantidad[i].data}}/{{docCantidad}}</h1>
+              <div *ngIf="page==1">
+                <h3 >{{LoadDocumentoCantidad[i].valor}}/{{articulos.cantidad_articulo}}</h3>
+                <a (click)="openDialog(id_ruta_seccion,articulos.identificador)" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+                <!-- <a (click)="mostrarFormCantidad=!mostrarFormCantidad; cantidadFormIndex=false" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a> -->
+                  <div>
+                    <h4>Ingresar cantidad de documentos</h4>
+                    <mat-card *ngIf="mostrarFormCantidad">
+                      <div class="cantidad-documentos">
+                        <mat-form-field class="cantidad-documentos-mat">
+                            <mat-label>Cantidad de documentos Permitidos</mat-label>
+                            <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" [(ngModel)]="ListaCantidadDocumento.cantidad_articulo"
+                              placeholder="Ingrese nuevo valor final" style="font-size: 26px;">
+                          </mat-form-field>
+                          <div class="cantidad-documento-box">
+                            <button (click)="cambiarContador(id_ruta_seccion,articulos.identificador,ListaCantidadDocumento);mostrarFormCantidad=!mostrarFormCantidad; cantidadFormIndex=false;" class="btn-create">Guardar</button>
+                          </div>
+                         
+                      </div>
+                    </mat-card>
+                  </div>
+
+                <mat-progress-bar mode="determinate" [value]="(LoadDocumentoCantidad[i].valor)/CargarCantidadDocumentos[i].cantidad_articulo * 100" max="5"></mat-progress-bar>
+              </div>
+              
+              <div *ngIf="page>1">
+                <h3  >{{LoadDocumentoCantidad[(page - 1)*7+(i)].valor}}/{{articulos.cantidad_articulo}}</h3>
+                <a (click)="openDialog(id_ruta_seccion,articulos.identificador)" ngClass="a_add animat" #tooltip='' matTooltip="Agregar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="add" ngClass="icon_add"></mat-icon> </a>
+                <div>
+                  <h4>Ingresar cantidad de documentos</h4>
+                  <mat-card *ngIf="mostrarFormCantidad">
+                    <div class="cantidad-documentos">
+                      <mat-form-field class="cantidad-documentos-mat">
+                          <mat-label>Cantidad de documentos Permitidos</mat-label>
+                          <input matInput type="number" min="0" oninput="this.value = Math.abs(this.value)" [(ngModel)]="ListaCantidadDocumento.cantidad_articulo"
+                            placeholder="Ingrese nuevo valor final" style="font-size: 26px;">
+                        </mat-form-field>
+                        <div class="cantidad-documento-box">
+                          <button (click)="cambiarContador(id_ruta_seccion,articulos.identificador,ListaCantidadDocumento);mostrarFormCantidad=!mostrarFormCantidad; cantidadFormIndex=false;" class="btn-create">Guardar</button>
+                        </div>
+                       
+                    </div>
+                  </mat-card>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="(LoadDocumentoCantidad[(page - 1)*7+(i)].valor/CargarCantidadDocumentos[(page - 1)*7+(i)].cantidad_articulo) *100"></mat-progress-bar>
+              </div>
+              
+             
               <!-- <div class ="first" *ngFor="let documentos of LoadDocumentoData">
                 <div [ngStyle]="{'width.%':width}" class="second"></div>
               </div> -->
-            </div>
+           
             </td>
 
-            <td ngClass="center" *ngIf="articulos.identificador==LoadDocumentoCantidad[i].identificador;">
-              <a [href]="rutaUrl + articulos.identificador"> Abrir </a>
+            <td ngClass="center" *ngIf="articulos.identificador==documentos.identificador;">
+              <a [href]="'asfi/empresa/gestion/'+id_ruta_gestion+'/seccion/'+id_ruta_seccion+'/articulo/'+articulos.identificador +'/editarArticulo'" ngClass="amr" #tooltip="matTooltip" matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="drive_file_rename_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a (click)="eliminar(id_ruta_seccion,articulos.identificador)" ngClass="amr" #tooltip="matTooltip" matTooltip="Editar" matTooltipPosition="left"  aria-tooltip="Button"> <mat-icon fontIcon="delete_outline" ngClass="icon_op" ></mat-icon> </a>
+              <a [href]="['/asfi/empresa/gestion/' + (id_ruta_gestion) + '/seccion/' + (id_ruta_seccion) + '/articulo/' + articulos.identificador]" ngClass="amr" > <mat-icon matTooltip="documentos del articulo" ngClass="icon_op" fontIcon="arrow_forward" ></mat-icon> </a>
             </td>
           </tr>
           <!-- </ul> -->

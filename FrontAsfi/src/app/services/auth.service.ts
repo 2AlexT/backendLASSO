@@ -31,7 +31,6 @@ export class AuthService {
     
 
     isLoggedIn(){
-        console.log(localStorage.getItem('accessToken')+ "   AQUI ESTA EL LOGGEDIN  ")
         return localStorage.getItem('accessToken')!=null;
     }
 
@@ -62,4 +61,10 @@ export class AuthService {
         if(usuario === undefined || usuario === 'undefined') return false;
         return usuario !== null && usuario !== '' ? true : false;
     }
+
+    crearUsuario(){
+        
+    }
+
+
 }
